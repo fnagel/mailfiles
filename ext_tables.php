@@ -7,8 +7,8 @@ t3lib_extMgm::addStaticFile($_EXTKEY, 'pi1/static/', 'Mail Files: default config
 t3lib_extMgm::addStaticFile($_EXTKEY, 'pi1/static/old/', 'Mail Files: old form config');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'pi1/static/new/', 'Mail Files: new form config for EXT:form');
 
-$tempColumns = array (
-	'tx_mailfiles_pluploadfe_config' => array (
+$tempColumns = array(
+	'tx_mailfiles_pluploadfe_config' => array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:pluploadfe/locallang_db.xml:tt_content.tx_pluploadfe_config',
 		'config' => array(
@@ -27,7 +27,6 @@ $tempColumns = array (
 		),
 	),
 );
-
 
 
 t3lib_div::loadTCA('tt_content');
