@@ -1,0 +1,34 @@
+plugin.tx_mailfiles_pi1 {
+	form {
+		10 = FORM
+		10 {
+			layout = <fieldset class="ui-helper-clearfix">###LABEL### ###FIELD###</fieldset>
+			params.submit = class="linkbutton"
+			params.textarea = class="text"
+			formName = mailfiles
+			fieldPrefix = 0
+			dontMd5FieldNames = 1
+			accessibility = 1
+			wrapFieldName = mailfiles[|]
+
+			badMess = Please fill in these fields:
+			badMess.lang.de = Bitte ausfüllen:
+			
+			dataArray {
+				10.label = Message
+				10.label.lang.de = Nachricht
+				10.type = message=textarea,30,10
+				10.required = 1
+
+				15.label = Auto-send
+				15.label.lang.de = Automatisch senden
+				15.type = auto=check
+				15.required = 1
+
+				20.type = submit=submit
+				20.value = Send
+				20.value.lang.de = Abschicken
+			}
+		}
+	}
+}

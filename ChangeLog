@@ -1,0 +1,41 @@
+2014-05-12 Felix Nagel  <info@felixnagel.com>
+
+	released version 0.5.0 (TS and template changes required)
+	* improved: code style and CGL
+	* updated: readme
+	* improved: compatible with old form and new (EXT:form) extension,
+				you need to add the corresponding static template!
+
+2014-01-03 Felix Nagel  <info@felixnagel.com>
+
+	released version 0.4.0
+	* updated: template to match plupload version 2.0
+
+2013-03-09 Felix Nagel  <info@felixnagel.com>
+
+	0.3.1 released (no changes required)
+	* added: requirements as needed for planned TYPO3 TER cleanup
+	* improved: default template plupload runtimes config
+	* improved: default template jQuery version update to 1.9.0
+	
+2012-12-12 Felix Nagel  <info@felixnagel.com>
+
+	released v0.0.3 (no changes required)
+	* added: 	EXT:form to conflicting extension list, THX to Nikos K.
+	* added: 	notice to the readme file
+	
+2012-09-06 Felix Nagel  <info@felixnagel.com>
+
+	released v0.0.2 (no changes required)
+	* removed: 	helper and deprecated functions, should be TYPO3 6.0 ready
+	* removed: 	unneeded feuser name check, please make sure plugin is access 
+				resticted if needed. This should be configured in plupluadfe 
+				configuration record too!)
+	
+2012-02-05 Felix Nagel  <info@felixnagel.com>
+
+	* first release to TER
+	
+2011-11-05 Felix Nagel  <info@felixnagel.com>
+
+	* initial code generated with kickstarter

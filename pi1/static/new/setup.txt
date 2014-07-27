@@ -1,0 +1,35 @@
+plugin.tx_mailfiles_pi1 {
+	form {
+		10 = FORM
+		10 {
+			enctype = application/x-www-form-urlencoded
+			method = post
+			prefix = mailfiles
+
+			layout < tt_content.mailform.20.layout
+
+			10 = TEXTAREA
+			10 {
+				cols = 40
+				name = message
+				rows = 5
+				label {
+					value = Message
+				}
+			}
+			20 = CHECKBOX
+			20 {
+				name = auto
+				value = 1
+				label {
+					value = Auto-Send
+				}
+			}
+			30 = SUBMIT
+			30 {
+				name = submit
+				value = Submit
+			}
+		}
+	}
+}

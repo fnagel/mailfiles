@@ -1,0 +1,35 @@
+plugin.tx_mailfiles_pi1 {
+	templateFile = EXT:mailfiles/res/template.html
+
+	mail {
+		# email data
+		to = mail@test.dev
+		from = no-reply@domain.dev
+		from_name =
+		
+		subject = New files uploaded
+		
+		# added to the email
+		beforeMessage = HTML
+		beforeMessage.value = New files uploaded! This message was attached:<br /><br />	
+		
+		afterMessage = HTML
+		afterMessage.value = <br /><br /><strong>Uploaded files:</strong><br /><br />
+	}
+	
+	# set this if used via TS
+	uid = 
+	configUid = 
+
+	# form is defined in seperate static template
+	form = COA
+	form.wrap = <div>|</div>
+
+	# info message 
+	success = TEXT
+	success.value = <p>Thanks, your files were submitted!</p><br />
+	
+	# error message
+	no_files = TEXT
+	no_files.value = <p>Please upload files before sending the form.</p><br />
+}
