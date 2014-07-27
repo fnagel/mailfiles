@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011 Felix Nagel <info@felixnagel.com>
+ *  (c) 2011-2014 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,11 +21,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-/**
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- * Hint: use extdeveval to insert/update function index above.
- */
 
 
 /**
@@ -41,7 +36,7 @@ class tx_mailfiles_pi1_wizicon {
 	 * Processing the wizard items array
 	 *
 	 * @param    array $wizardItems : The wizard items
-	 * @return    Modified array with wizard items
+	 * @return   array Modified array with wizard items
 	 */
 	function proc($wizardItems) {
 		global $LANG;
@@ -61,7 +56,7 @@ class tx_mailfiles_pi1_wizicon {
 	/**
 	 * Reads the [extDir]/locallang.xml and returns the $LOCAL_LANG array found in that file.
 	 *
-	 * @return    The array with language labels
+	 * @return  array The array with language labels
 	 */
 	function includeLocalLang() {
 		$llFile = t3lib_extMgm::extPath('mailfiles') . 'locallang.xml';

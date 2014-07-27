@@ -21,13 +21,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-/**
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- * Hint: use extdeveval to insert/update function index above.
- */
-
-require_once(PATH_tslib . 'class.tslib_pibase.php');
 
 
 /**
@@ -42,7 +35,7 @@ class tx_mailfiles_pi1 extends tslib_pibase {
 	var $prefixId = 'tx_mailfiles_pi1';
 	var $scriptRelPath = 'pi1/class.tx_mailfiles_pi1.php';
 	var $extKey = 'mailfiles';
-	var $pi_checkCHash = true;
+	var $pi_checkCHash = TRUE;
 
 	/*
 	 * @param tx_pluploadfe_pi1
