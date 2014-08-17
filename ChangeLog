@@ -1,14 +1,15 @@
 2014-05-12 Felix Nagel  <info@felixnagel.com>
 
-	released version 0.5.0 (TS and template changes required)
-	* improved: code style and CGL
+	released version 0.2.0 (TS and template changes required)
 	* updated: readme
 	* improved: compatible with old form and new (EXT:form) extension,
 				you need to add the corresponding static template!
+	* fix: wrong version numbers in this changelog
+	* improved: code style and CGL
 
 2014-01-03 Felix Nagel  <info@felixnagel.com>
 
-	released version 0.4.0
+	released version 0.1.0
 	* updated: template to match plupload version 2.0
 
 2013-03-09 Felix Nagel  <info@felixnagel.com>
