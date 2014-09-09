@@ -1,12 +1,13 @@
-2014-08-xx Felix Nagel  <info@felixnagel.com>
+2014-09-09 Felix Nagel  <info@felixnagel.com>
 
-	released version 0.6.0
+	released version 1.0.0 (changes required)
 	* updated: compatible with TYPO3 6.x
 	* improved: CGL
+	* fixed: this changelog
 
 2014-05-12 Felix Nagel  <info@felixnagel.com>
 
-	released version 0.5.0 (TS and template changes required)
+	released version 0.1.0 (TS and template changes required)
 	* improved: code style and CGL
 	* updated: readme
 	* improved: compatible with old form and new (EXT:form) extension,
@@ -14,7 +15,7 @@
 
 2014-01-03 Felix Nagel  <info@felixnagel.com>
 
-	released version 0.4.0
+	released version 0.0.4
 	* updated: template to match plupload version 2.0
 
 2013-03-09 Felix Nagel  <info@felixnagel.com>
