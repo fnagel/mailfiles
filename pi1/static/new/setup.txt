@@ -7,6 +7,8 @@ plugin.tx_mailfiles_pi1 {
 			prefix = mailfiles
 
 			layout < tt_content.mailform.20.layout
+			# When using newer EXT:form TypoScript:
+			# layout < tt_content.mailform.20.form.layout
 
 			10 = TEXTAREA
 			10 {
