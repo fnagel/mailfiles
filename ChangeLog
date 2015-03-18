@@ -1,3 +1,9 @@
+2015-03-18 Felix Nagel  <info@felixnagel.com>
+
+	released version 1.0.1 (no changes required)
+	* fixed: Wrong TS cObject definition (TYPO3 6.x does not support HTML cObject)
+	* improved: readme file
+
 2014-09-09 Felix Nagel  <info@felixnagel.com>
 
 	released version 1.0.0 (changes required)
