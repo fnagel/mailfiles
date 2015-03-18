@@ -6,29 +6,29 @@ plugin.tx_mailfiles_pi1 {
 		to = mail@test.dev
 		from = no-reply@domain.dev
 		from_name =
-		
+
 		subject = New files uploaded
-		
+
 		# added to the email
-		beforeMessage = HTML
-		beforeMessage.value = New files uploaded! This message was attached:<br /><br />	
-		
-		afterMessage = HTML
+		beforeMessage = TEXT
+		beforeMessage.value = New files uploaded! This message was attached:<br /><br />
+
+		afterMessage = TEXT
 		afterMessage.value = <br /><br /><strong>Uploaded files:</strong><br /><br />
 	}
-	
+
 	# set this if used via TS
-	uid = 
-	configUid = 
+	uid =
+	configUid =
 
 	# form is defined in seperate static template
 	form = COA
 	form.wrap = <div>|</div>
 
-	# info message 
+	# info message
 	success = TEXT
 	success.value = <p>Thanks, your files were submitted!</p><br />
-	
+
 	# error message
 	no_files = TEXT
 	no_files.value = <p>Please upload files before sending the form.</p><br />
