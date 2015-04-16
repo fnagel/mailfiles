@@ -87,7 +87,7 @@ class tx_mailfiles_pi1 extends tslib_pibase {
 
 		// add files
 		foreach ($files as $file) {
-			$bodyHtml .= '<a href="' . $file . '">' . $file . '</a><br />';
+			$bodyHtml .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $file . '">' . $file . '</a><br />';
 		}
 
 		// plain text only
