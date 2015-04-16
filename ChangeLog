@@ -1,3 +1,8 @@
+2015-04-16 Felix Nagel  <info@felixnagel.com>
+
+	released version 1.0.2 (no changes required)
+	* changed: Prefix file links with domain due to pluploadfe changes
+
 2015-03-18 Felix Nagel  <info@felixnagel.com>
 
 	released version 1.0.1 (no changes required)
