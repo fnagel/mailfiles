@@ -1,8 +1,9 @@
 <?php
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011-2014 Felix Nagel <info@felixnagel.com>
+ *  (c) 2011-2015 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,6 +23,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * Plugin 'Mail File' for the 'mailfiles' extension.
@@ -30,12 +34,27 @@
  * @package    TYPO3
  * @subpackage    tx_mailfiles
  */
-class tx_mailfiles_pi1 extends tslib_pibase {
+class tx_mailfiles_pi1 extends AbstractPlugin {
 
-	var $prefixId = 'tx_mailfiles_pi1';
-	var $scriptRelPath = 'pi1/class.tx_mailfiles_pi1.php';
-	var $extKey = 'mailfiles';
-	var $pi_checkCHash = TRUE;
+	/**
+	 * @var string
+	 */
+	public $prefixId = 'tx_mailfiles_pi1';
+
+	/**
+	 * @var string
+	 */
+	public $scriptRelPath = 'pi1/class.tx_mailfiles_pi1.php';
+
+	/**
+	 * @var string
+	 */
+	public $extKey = 'mailfiles';
+
+	/**
+	 * @var string
+	 */
+	public $pi_checkCHash = TRUE;
 
 	/*
 	 * @param tx_pluploadfe_pi1
@@ -54,17 +73,17 @@ class tx_mailfiles_pi1 extends tslib_pibase {
 		$this->pi_setPiVarDefaults();
 		$this->pi_loadLL();
 
-		if (!t3lib_extMgm::isLoaded('pluploadfe')) {
+		if (!ExtensionManagementUtility::isLoaded('pluploadfe')) {
 			return '<div style="border: 3px solid red; padding: 1em;">' .
-			'<strong>TYPO3 EXT:mailfiles Error</strong><br />EXT:pluploadfe not installed</div>';
+				'<strong>TYPO3 EXT:mailfiles Error</strong><br />EXT:pluploadfe not installed</div>';
 		}
 
 		// form sent?
-		$postVariables = t3lib_div::_GP('mailfiles');
+		$postVariables = GeneralUtility::_GP('mailfiles');
 		if ($postVariables['submit']) {
 			$files = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_pluploadfe_files');
 			if (is_array($files) && count($files) > 0) {
-				$msg = t3lib_div::removeXSS(strip_tags($postVariables['message']));
+				$msg = GeneralUtility::removeXSS(strip_tags($postVariables['message']));
 				$content = $this->sendMail($files, $msg);
 			} else {
 				$content = $this->cObj->cObjGetSingle($this->conf['no_files'], $this->conf['no_files.']);
@@ -87,16 +106,17 @@ class tx_mailfiles_pi1 extends tslib_pibase {
 
 		// add files
 		foreach ($files as $file) {
-			$bodyHtml .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $file . '">' . $file . '</a><br />';
+			$bodyHtml .= '<a href="' . GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $file . '">' . $file . '</a><br />';
 		}
 
 		// plain text only
 		$bodyText = preg_replace('!<br.*>!iU', LF, $bodyHtml);
-		$bodyText = t3lib_div::substUrlsInPlainText(strip_tags($bodyHtml));
+		$bodyText = GeneralUtility::substUrlsInPlainText(strip_tags($bodyHtml));
 		// break lines
 		$bodyText = wordwrap($bodyText, 76, "\n", FALSE);
 
-		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
+		/* @var $mail \TYPO3\CMS\Core\Mail\MailMessage */
+		$mail = GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');
 		$mail->setFrom(array($this->conf['mail.']['from'] => $this->conf['mail.']['from_name']));
 		$mail->setTo($this->conf['mail.']['to']);
 		if (strlen($this->conf['mail.']['bbc']) > 0) {
@@ -115,8 +135,8 @@ class tx_mailfiles_pi1 extends tslib_pibase {
 	}
 
 	public function renderPlupload($content) {
-		t3lib_div::requireOnce(t3lib_extMgm::extPath('pluploadfe', 'pi1/class.tx_pluploadfe_pi1.php'));
-		$this->pluploadfe = t3lib_div::makeInstance('tx_pluploadfe_pi1');
+		GeneralUtility::requireOnce(ExtensionManagementUtility::extPath('pluploadfe', 'pi1/class.tx_pluploadfe_pi1.php'));
+		$this->pluploadfe = GeneralUtility::makeInstance('tx_pluploadfe_pi1');
 		$this->pluploadfe->cObj = $this->cObj;
 
 		if (!is_numeric($this->conf['configUid'])) {

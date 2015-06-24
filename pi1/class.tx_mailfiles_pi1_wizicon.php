@@ -1,8 +1,9 @@
 <?php
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011-2014 Felix Nagel <info@felixnagel.com>
+ *  (c) 2011-2015 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,6 +23,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * Class that adds the wizard icon.
@@ -38,15 +41,13 @@ class tx_mailfiles_pi1_wizicon {
 	 * @param    array $wizardItems : The wizard items
 	 * @return   array Modified array with wizard items
 	 */
-	function proc($wizardItems) {
-		global $LANG;
-
-		$LL = $this->includeLocalLang();
+	public function proc($wizardItems) {
+		$localization = $this->includeLocalLang();
 
 		$wizardItems['plugins_tx_mailfiles_pi1'] = array(
-			'icon' => t3lib_extMgm::extRelPath('mailfiles') . 'pi1/ce_wiz.gif',
-			'title' => $LANG->getLLL('pi1_title', $LL),
-			'description' => $LANG->getLLL('pi1_plus_wiz_description', $LL),
+			'icon' => ExtensionManagementUtility::extRelPath('mailfiles') . 'pi1/ce_wiz.gif',
+			'title' => $GLOBALS['LANG']->getLLL('pi1_title', $localization),
+			'description' => $GLOBALS['LANG']->getLLL('pi1_plus_wiz_description', $localization),
 			'params' => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=mailfiles_pi1'
 		);
 
@@ -56,16 +57,16 @@ class tx_mailfiles_pi1_wizicon {
 	/**
 	 * Reads the [extDir]/locallang.xml and returns the $LOCAL_LANG array found in that file.
 	 *
-	 * @return  array The array with language labels
+	 * @return   array The array with language labels
 	 */
-	function includeLocalLang() {
-		$llFile = t3lib_extMgm::extPath('mailfiles') . 'locallang.xml';
-		$LOCAL_LANG = t3lib_div::readLLfile($llFile, $GLOBALS['LANG']->lang);
+	protected function includeLocalLang() {
+		$llFile = ExtensionManagementUtility::extPath('mailfiles') . 'locallang.xml';
+		$localization = GeneralUtility::readLLfile($llFile, $GLOBALS['LANG']->lang);
 
-		return $LOCAL_LANG;
+		return $localization;
 	}
-}
 
+}
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mailfiles/pi1/class.tx_mailfiles_pi1_wizicon.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mailfiles/pi1/class.tx_mailfiles_pi1_wizicon.php']);

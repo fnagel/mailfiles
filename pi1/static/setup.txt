@@ -21,10 +21,6 @@ plugin.tx_mailfiles_pi1 {
 	uid =
 	configUid =
 
-	# form is defined in seperate static template
-	form = COA
-	form.wrap = <div>|</div>
-
 	# info message
 	success = TEXT
 	success.value = <p>Thanks, your files were submitted!</p><br />
@@ -32,4 +28,44 @@ plugin.tx_mailfiles_pi1 {
 	# error message
 	no_files = TEXT
 	no_files.value = <p>Please upload files before sending the form.</p><br />
+
+	# form configuration
+	form = COA
+	form {
+		wrap = <div>|</div>
+
+		10 = FORM
+		10 {
+			enctype = application/x-www-form-urlencoded
+			method = post
+			prefix = mailfiles
+
+			layout < tt_content.mailform.20.layout
+			# When using newer EXT:form TypoScript:
+			# layout < tt_content.mailform.20.form.layout
+
+			10 = TEXTAREA
+			10 {
+				cols = 40
+				name = message
+				rows = 5
+				label {
+					value = Message
+				}
+			}
+			20 = CHECKBOX
+			20 {
+				name = auto
+				value = 1
+				label {
+					value = Auto-Send
+				}
+			}
+			30 = SUBMIT
+			30 {
+				name = submit
+				value = Submit
+			}
+		}
+	}
 }
