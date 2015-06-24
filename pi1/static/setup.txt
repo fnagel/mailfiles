@@ -17,10 +17,6 @@ plugin.tx_mailfiles_pi1 {
 		afterMessage.value = <br /><br /><strong>Uploaded files:</strong><br /><br />
 	}
 
-	# set this if used via TS
-	uid =
-	configUid =
-
 	# info message
 	success = TEXT
 	success.value = <p>Thanks, your files were submitted!</p><br />
@@ -28,6 +24,12 @@ plugin.tx_mailfiles_pi1 {
 	# error message
 	no_files = TEXT
 	no_files.value = <p>Please upload files before sending the form.</p><br />
+
+	# pluploadFe instance
+	pluploadfe < plugin.tx_pluploadfe_pi1
+	pluploadfe {
+		templateFile < plugin.tx_mailfiles_pi1.template
+	}
 
 	# form configuration
 	form = COA

@@ -89,7 +89,7 @@ class tx_mailfiles_pi1 extends AbstractPlugin {
 				$content = $this->cObj->cObjGetSingle($this->conf['no_files'], $this->conf['no_files.']);
 			}
 		} else {
-			$content .= $this->renderPlupload($content);
+			$content .= $this->renderPlupload();
 			$content .= $this->cObj->cObjGetSingle($this->conf['form'], $this->conf['form.']);
 		}
 
@@ -127,29 +127,19 @@ class tx_mailfiles_pi1 extends AbstractPlugin {
 		$mail->addPart($bodyText, 'text/plain');
 		$mail->send();
 
-		// reset saved files in seesion
+		// reset saved files in session
 		$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_pluploadfe_files', '');
 		$GLOBALS['TSFE']->fe_user->storeSessionData();
 
 		return $this->cObj->cObjGetSingle($this->conf['success'], $this->conf['success.']);
 	}
 
-	public function renderPlupload($content) {
-		GeneralUtility::requireOnce(ExtensionManagementUtility::extPath('pluploadfe', 'pi1/class.tx_pluploadfe_pi1.php'));
-		$this->pluploadfe = GeneralUtility::makeInstance('tx_pluploadfe_pi1');
-		$this->pluploadfe->cObj = $this->cObj;
-
-		if (!is_numeric($this->conf['configUid'])) {
-			$this->conf['configUid'] = intval($this->cObj->data['tx_mailfiles_pluploadfe_config']);
+	public function renderPlupload() {
+		if (!is_numeric($this->conf['pluploadfe.']['configUid'])) {
+			$this->conf['pluploadfe.']['configUid'] = intval($this->cObj->data['tx_mailfiles_pluploadfe_config']);
 		}
 
-		if ($this->cObj->data['_LOCALIZED_UID']) {
-			$this->conf['uid'] = intval($this->cObj->data['_LOCALIZED_UID']);
-		} else {
-			$this->conf['uid'] = intval($this->cObj->data['uid']);
-		}
-
-		return $this->pluploadfe->main($content, $this->conf);
+		return $this->cObj->cObjGetSingle($this->conf['pluploadfe'], $this->conf['pluploadfe.']);
 	}
 }
 
