@@ -20,10 +20,10 @@ $EM_CONF[$_EXTKEY] = array(
 	'internal' => '',
 	'uploadfolder' => 0,
 	'clearCacheOnLoad' => 0,
-	'version' => '1.1.1-dev',
+	'version' => '1.1.1',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '6.2.0-7.3.99',
+			'typo3' => '6.2.0-7.4.99',
 			'cms' => '',
 			'pluploadfe' => '1.2.0-1.2.99',
 		),
