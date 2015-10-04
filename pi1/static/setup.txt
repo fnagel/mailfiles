@@ -42,8 +42,10 @@ plugin.tx_mailfiles_pi1 {
 			method = post
 			prefix = mailfiles
 
-			layout < tt_content.mailform.20.layout
-			# When using newer EXT:form TypoScript:
+			# Use form style TYPO3 < 6.2
+			# layout < tt_content.mailform.20.layout
+
+			# Use form style TYPO3 > 6.2, non Fluid templates
 			# layout < tt_content.mailform.20.form.layout
 
 			10 = TEXTAREA
