@@ -27,9 +27,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'cms' => '',
 			'pluploadfe' => '1.2.0-1.2.99',
 		),
-		'conflicts' => array(
-			'form' => '',
-		),
+		'conflicts' => array(),
 		'suggests' => array(),
 	),
 );
