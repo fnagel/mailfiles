@@ -127,7 +127,7 @@ class tx_mailfiles_pi1 extends AbstractPlugin {
 
 		// plain text only
 		$bodyText = preg_replace('!<br.*>!iU', LF, $bodyHtml);
-		$bodyText = GeneralUtility::substUrlsInPlainText(strip_tags($bodyHtml));
+		$bodyText = GeneralUtility::substUrlsInPlainText(strip_tags($bodyText));
 		// break lines
 		$bodyText = wordwrap($bodyText, 76, "\n", FALSE);
 
