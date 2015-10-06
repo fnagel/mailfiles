@@ -78,8 +78,8 @@ class tx_mailfiles_pi1 extends AbstractPlugin {
 				'<strong>TYPO3 EXT:mailfiles Error</strong><br />EXT:pluploadfe not installed</div>';
 		}
 
+		$postVariables = $this->getFormParameter();
 		// form sent?
-		$postVariables = GeneralUtility::_GP('mailfiles');
 		if ($postVariables['submit']) {
 			$files = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_pluploadfe_files');
 			if (is_array($files) && count($files) > 0) {
@@ -94,6 +94,22 @@ class tx_mailfiles_pi1 extends AbstractPlugin {
 		}
 
 		return $this->pi_wrapInBaseClass($content);
+	}
+
+	/**
+	 * Get normalizes POST data
+	 *
+	 * @return array
+	 */
+	protected function getFormParameter() {
+		if (version_compare(TYPO3_branch, '7.5', '>=')) {
+			$data = GeneralUtility::_GP('tx_form_form');
+			$data =  $data['mailfiles'];
+		} else {
+			$data = GeneralUtility::_GP('mailfiles');
+		}
+
+		return $data;
 	}
 
 	public function sendMail($files, $msg) {
