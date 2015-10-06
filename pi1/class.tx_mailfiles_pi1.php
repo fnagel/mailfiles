@@ -56,11 +56,6 @@ class tx_mailfiles_pi1 extends AbstractPlugin {
 	 */
 	public $pi_checkCHash = TRUE;
 
-	/*
-	 * @param tx_pluploadfe_pi1
-	 */
-	private $pluploadfe = NULL;
-
 	/**
 	 * The main method of the PlugIn
 	 *
