@@ -23,6 +23,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '1.1.4-dev',
 	'constraints' => array(
 		'depends' => array(
+			'php' => '5.4.0-7.0.99',
 			'typo3' => '6.2.0-7.6.99',
 			'cms' => '',
 			'pluploadfe' => '1.2.0-1.3.99',
