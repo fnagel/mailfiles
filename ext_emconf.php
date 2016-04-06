@@ -26,7 +26,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'php' => '5.4.0-7.0.99',
 			'typo3' => '6.2.0-7.6.99',
 			'cms' => '',
-			'pluploadfe' => '1.2.0-1.3.99',
+			'pluploadfe' => '1.2.0-1.4.99',
 		),
 		'conflicts' => array(),
 		'suggests' => array(),
