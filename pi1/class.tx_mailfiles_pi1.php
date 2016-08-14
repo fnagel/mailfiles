@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2011-2016 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -122,7 +122,13 @@ class tx_mailfiles_pi1 extends AbstractPlugin {
 
 		// plain text only
 		$bodyText = preg_replace('!<br.*>!iU', LF, $bodyHtml);
-		$bodyText = GeneralUtility::substUrlsInPlainText(strip_tags($bodyText));
+		$bodyText = strip_tags($bodyText);
+
+        // @todo Remove this when 6.2 is no longer relevant
+        if (version_compare(TYPO3_branch, '7.0', '<')) {
+            $bodyText = GeneralUtility::substUrlsInPlainText($bodyText);
+        }
+
 		// break lines
 		$bodyText = wordwrap($bodyText, 76, "\n", FALSE);
 
