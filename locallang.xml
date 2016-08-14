@@ -7,11 +7,11 @@
     <data type="array">
         <languageKey index="default" type="array">
             <label index="pi1_title">Mail Files</label>
-            <label index="pi1_plus_wiz_description">File exchange via email</label>
+            <label index="pi1_plus_wiz_description">File exchange using email</label>
         </languageKey>
         <languageKey index="de" type="array">
             <label index="pi1_title">Mail Files</label>
-            <label index="pi1_plus_wiz_description">Datei Austausch per Email</label>
+            <label index="pi1_plus_wiz_description">Datei-Austausch per Email</label>
         </languageKey>
     </data>
 </T3locallang>
