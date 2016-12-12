@@ -15,7 +15,7 @@ if (!defined('TYPO3_MODE')) {
 
 // Add plugin
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(array(
-	'LLL:EXT:mailfiles/locallang_db.xml:tt_content.list_type_pi1',
+	'LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xml:tt_content.list_type_pi1',
 	$_EXTKEY . '_pi1'
 ), 'list_type');
 
