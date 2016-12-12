@@ -26,6 +26,6 @@ if (version_compare(TYPO3_branch, '7.0', '>=')) {
     $iconRegistry->registerIcon(
         'extensions-mailfiles-wizard',
         \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-        ['source' => 'EXT:mailfiles/pi1/ce_wiz.gif']
+        ['source' => 'EXT:mailfiles/Resources/Public/Icons/plugin.png']
     );
 }
