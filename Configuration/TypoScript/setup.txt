@@ -1,5 +1,5 @@
 plugin.tx_mailfiles_pi1 {
-	templateFile = EXT:mailfiles/res/template.html
+	templateFile = EXT:mailfiles/Resources/Private/Templates/template.html
 
 	mail {
 		# email data
