@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
- * DefaultController
+ * DefaultController.
  */
 class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
@@ -30,7 +30,7 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $emailService;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \Exception
      */
@@ -45,9 +45,7 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
-     * action new
-     *
-     * @return void
+     * action new.
      */
     public function newAction()
     {
@@ -57,10 +55,9 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
-     * action create
+     * action create.
      *
      * @param \TYPO3\Mailfiles\Domain\Model\Mail $newMail
-     * @return void
      */
     public function createAction(\TYPO3\Mailfiles\Domain\Model\Mail $newMail)
     {
@@ -84,10 +81,12 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * @param string $subject
      * @param string $message
-     * @param array $files
+     * @param array  $files
+     *
      * @return bool
      */
-    protected function sendEmail($subject, $message, $files = array()) {
+    protected function sendEmail($subject, $message, $files = array())
+    {
         $mailTo = $this->settings['mailTo'];
         $mailFrom = $this->settings['mailFrom'];
 
@@ -106,7 +105,8 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * @return mixed
      */
-    protected function renderPlupload() {
+    protected function renderPlupload()
+    {
         $contentObject = $this->configurationManager->getContentObject();
 
         if (!is_numeric($this->settings['pluploadfe']['configUid'])) {
@@ -135,7 +135,6 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
-     * @return void
      */
     protected function resetFilesInSession()
     {
@@ -145,6 +144,7 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * @param $string
+     *
      * @return string
      */
     protected function sanitizeString($string)
@@ -154,7 +154,8 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * @param $key
-     * @return NULL|string
+     *
+     * @return null|string
      */
     protected function translate($key)
     {
@@ -172,7 +173,7 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getErrorFlashMessage()
     {

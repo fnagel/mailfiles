@@ -14,12 +14,12 @@ namespace TYPO3\Mailfiles\Domain\Model;
  ***/
 
 /**
- * Mail
+ * Mail.
  */
 class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * subject
+     * subject.
      *
      * @var string
      * @validate Text
@@ -27,7 +27,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $subject = '';
 
     /**
-     * message
+     * message.
      *
      * @var string
      * @validate Text
@@ -35,7 +35,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $message = '';
 
     /**
-     * Returns the subject
+     * Returns the subject.
      *
      * @return string $subject
      */
@@ -45,10 +45,9 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the subject
+     * Sets the subject.
      *
      * @param string $subject
-     * @return void
      */
     public function setSubject($subject)
     {
@@ -56,7 +55,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the message
+     * Returns the message.
      *
      * @return string $message
      */
@@ -66,10 +65,9 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the message
+     * Sets the message.
      *
      * @param string $message
-     * @return void
      */
     public function setMessage($message)
     {

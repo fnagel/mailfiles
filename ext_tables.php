@@ -1,9 +1,9 @@
 <?php
+
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function()
-    {
+    function () {
         // Add static TS
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
             'mailfiles', 'Configuration/TypoScript/', 'Mail Files: default config'
@@ -11,7 +11,7 @@ call_user_func(
 
         // Add page TS config
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-            '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . 'mailfiles' . '/Configuration/TypoScript/pageTsConfig.ts">'
+            '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'.'mailfiles'.'/Configuration/TypoScript/pageTsConfig.ts">'
         );
 
         // Add plugin

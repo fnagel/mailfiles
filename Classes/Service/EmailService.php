@@ -64,8 +64,8 @@ class EmailService implements SingletonInterface
      * @param array  $mailTo
      * @param array  $mailFrom
      * @param string $subject
-	 * @param array  $variables
-	 * @param string $templatePath
+     * @param array  $variables
+     * @param string $templatePath
      *
      * @return int the number of recipients who were accepted for delivery
      */
@@ -215,7 +215,7 @@ class EmailService implements SingletonInterface
     }
 
     /**
-     * Create mail message
+     * Create mail message.
      *
      * @return \TYPO3\CMS\Core\Mail\MailMessage
      */
