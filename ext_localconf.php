@@ -1,8 +1,19 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-	die ('Access denied.');
-}
+defined('TYPO3_MODE') || die('Access denied.');
 
-TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43(
-	$_EXTKEY, 'pi1/class.tx_mailfiles_pi1.php', '_pi1', 'list_type', 0
+call_user_func(
+    function()
+    {
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'TYPO3.Mailfiles',
+            'Pi1',
+            [
+                'Default' => 'new, create'
+            ],
+            // non-cacheable actions
+            [
+                'Default' => 'new, create'
+            ]
+        );
+    }
 );

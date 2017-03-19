@@ -22,6 +22,7 @@ Installation
 * Configure the plugin options via TS (see static template in pi1/static/setup.txt)
 * Add plugin to a page and specify pluploadfe configuration record
 
+_Note:_ Make sure to enable "Authenticated frontend user needed" option in pluploadfe config record.
 
 
 Plupload
@@ -29,12 +30,6 @@ Plupload
 _More info about plupload:_
 
 http://www.plupload.com/
-
-
-ToDo
-----
-
-* Refactor this extension to Extbase / Fluid
 
 
 Contribution

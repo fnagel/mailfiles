@@ -1,0 +1,25 @@
+<f:layout name="Email" />
+
+<f:section name="main">
+    <p>
+        New files uploaded!
+    </p>
+
+    <f:if condition="{message}">
+        <strong>Message:</strong>
+        <br>
+        <p>
+            {message -> f:format.nl2br()}
+        </p>
+    </f:if>
+
+    <strong>Uploaded files:</strong>
+    <br>
+    <ul>
+        <f:for each="{files}" as="file">
+            <li>
+                <a href="{domain}{file}" target="_blank">{file}</a>
+            </li>
+        </f:for>
+    </ul>
+</f:section>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-03-18T00:46:08Z" product-name="mailfiles">
+		<header/>
+		<body>
+			<trans-unit id="tx_mailfiles_domain_model_mail.subject">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_mailfiles_domain_model_mail.message">
+				<source>Message</source>
+			</trans-unit>
+			<trans-unit id="tx_mailfiles_domain_model_mail.auto">
+				<source>Auto-Send</source>
+			</trans-unit>
+
+			<trans-unit id="flashMessage.noFiles">
+				<source>Please upload files before sending the form.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.success">
+				<source>Thanks, your files have been submitted!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.error">
+				<source>An error occurred! Please try again.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.noFiles">
+				<source>Message</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

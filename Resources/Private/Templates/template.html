@@ -1,15 +1,17 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>plupload template file</title>	<script type="text/javascript">
+	<title>mailfiles template file</title>
+
+	<script type="text/javascript">
 	// ###TEMPLATE_CODE###
 	$(function() {
 		// prepare form
 		var uploader = $('#uploader_###UID###'),
-			form = uploader.parent(".tx-pluploadfe-pi1").next().find("form"),
-			button = form.find(":submit").prop("disabled", true).addClass("ui-state-disabled"),
-			auto = form.find(":checkbox"),
-			errorMsg = "Error: ",
+			form = uploader.closest('.tx-mailfiles').find('form'),
+			button = form.find(':submit').prop('disabled', true).addClass(' disabled ui-state-disabled'),
+			auto = form.find(':checkbox'),
+			errorMsg = 'Error: ',
 			json;
 
 		uploader.pluploadQueue({
@@ -48,10 +50,10 @@
 				   }
 			   },
 			   UploadComplete: function() {
-				   button.prop("disabled", false ).removeClass("ui-state-disabled");
+				   button.prop('disabled', false ).removeClass('disabled ui-state-disabled');
 				   if (auto.is(':checked')) {
 					   window.setTimeout(function() {
-						   button.trigger("click");
+						   button.trigger('click');
 					   }, 500);
 				   }
 			   }
@@ -59,13 +61,12 @@
 	   });
 	});
 	// ###TEMPLATE_CODE###
-</script>
+	</script>
 </head>
 <body>
 
 <!-- ###TEMPLATE_CONTENT### begin -->
 <div id="uploader_###UID###">
-
 	<noscript><p>###INFO_1###</p></noscript>
 	<p>###INFO_2###</p>
 </div>

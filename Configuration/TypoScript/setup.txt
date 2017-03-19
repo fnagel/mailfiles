@@ -1,75 +1,42 @@
 plugin.tx_mailfiles_pi1 {
-	templateFile = EXT:mailfiles/Resources/Private/Templates/template.html
+	view {
+		templateRootPaths.0 = EXT:mailfiles/Resources/Private/Templates/
+		templateRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.templateRootPath}
 
-	mail {
-		# email data
-		to = mail@test.dev
-		from = no-reply@domain.dev
-		from_name =
+		partialRootPaths.0 = EXT:mailfiles/Resources/Private/Partials/
+		partialRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.partialRootPath}
 
-		subject = New files uploaded
-
-		# added to the email
-		beforeMessage = TEXT
-		beforeMessage.value = New files uploaded! This message was attached:<br /><br />
-
-		afterMessage = TEXT
-		afterMessage.value = <br /><br /><strong>Uploaded files:</strong><br /><br />
+		layoutRootPaths.0 = EXT:mailfiles/Resources/Private/Layouts/
+		layoutRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.layoutRootPath}
+	}
+	features {
+		skipDefaultArguments = 1
+		requireCHashArgumentForActionArguments = 1
+	}
+	mvc {
+		callDefaultActionIfActionCantBeResolved = 1
 	}
 
-	# info message
-	success = TEXT
-	success.value = <p>Thanks, your files were submitted!</p><br />
+	settings {
+		# Configure email template file (txt or html), controller name (and therefor subdirectory) is "Email"
+		mailTemplate = Email.html
 
-	# error message
-	no_files = TEXT
-	no_files.value = <p>Please upload files before sending the form.</p><br />
+		mailTo {
+			email = mail@test.dev
+			name =
+		}
 
-	# pluploadFe instance
-	pluploadfe < plugin.tx_pluploadfe_pi1
-	pluploadfe {
-		templateFile < plugin.tx_mailfiles_pi1.template
-	}
+		mailFrom {
+			email = no-reply@domain.dev
+			name =
+		}
 
-	# form configuration
-	form = COA
-	form {
-		wrap = <div>|</div>
+		mailSubjectDefault = New files uploaded
 
-		10 = FORM
-		10 {
-			enctype = application/x-www-form-urlencoded
-			method = post
-			prefix = mailfiles
-
-			# Use form style TYPO3 < 6.2
-			# layout < tt_content.mailform.20.layout
-
-			# Use form style TYPO3 > 6.2, non Fluid templates
-			# layout < tt_content.mailform.20.form.layout
-
-			10 = TEXTAREA
-			10 {
-				cols = 40
-				name = message
-				rows = 5
-				label {
-					value = Message
-				}
-			}
-			20 = CHECKBOX
-			20 {
-				name = auto
-				value = 1
-				label {
-					value = Auto-Send
-				}
-			}
-			30 = SUBMIT
-			30 {
-				name = submit
-				value = Submit
-			}
+		# PluploadFe instance
+		pluploadfe < plugin.tx_pluploadfe_pi1
+		pluploadfe {
+			templateFile = EXT:mailfiles/Resources/Private/Templates/template.html
 		}
 	}
 }

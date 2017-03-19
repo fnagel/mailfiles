@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-03-18T00:46:08Z" product-name="mailfiles">
+		<header/>
+		<body>
+			<trans-unit id="plugin.title">
+				<source>Mail Files</source>
+			</trans-unit>
+			<trans-unit id="wizard.title">
+				<source>Mail Files</source>
+			</trans-unit>
+			<trans-unit id="wizard.description">
+				<source>File exchange using email.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
