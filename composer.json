@@ -1,0 +1,15 @@
+{
+    "name": "felixnagel/mailfiles",
+    "type": "typo3-cms-extension",
+    "description": "",
+    "author": [],
+    "require": {
+        "php": ">=5.5.0,<7.1",
+        "typo3/cms-core": ">=7.6.0,<=8.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "TYPO3\\Mailfiles\\": "Classes"
+        }
+    }
+}
