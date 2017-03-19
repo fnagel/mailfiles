@@ -21,15 +21,14 @@ call_user_func(
             'LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xlf:plugin.title'
         );
 
-        // @todo Remove this when 6.2 is no longer relevant
-        if (version_compare(TYPO3_branch, '7.0', '>=')) {
-            /* @var $iconRegistry \TYPO3\CMS\Core\Imaging\IconRegistry */
-            $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-            $iconRegistry->registerIcon(
-                'extensions-mailfiles-wizard',
-                \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-                ['source' => 'EXT:mailfiles/Resources/Public/Icons/plugin.png']
-            );
-        }
+        /* @var $iconRegistry \TYPO3\CMS\Core\Imaging\IconRegistry */
+        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Imaging\IconRegistry::class
+        );
+        $iconRegistry->registerIcon(
+            'extensions-mailfiles-wizard',
+            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+            ['source' => 'EXT:mailfiles/Resources/Public/Icons/plugin.png']
+        );
     }
 );
