@@ -12,6 +12,9 @@
 			<trans-unit id="tx_mailfiles_domain_model_mail.auto">
 				<source>Auto-Send</source>
 			</trans-unit>
+			<trans-unit id="tx_mailfiles_domain_model_mail.submit">
+				<source>Submit</source>
+			</trans-unit>
 
 			<trans-unit id="flashMessage.noFiles">
 				<source>Please upload files before sending the form.</source>
@@ -21,9 +24,6 @@
 			</trans-unit>
 			<trans-unit id="flashMessage.error">
 				<source>An error occurred! Please try again.</source>
-			</trans-unit>
-			<trans-unit id="flashMessage.noFiles">
-				<source>Message</source>
 			</trans-unit>
 		</body>
 	</file>
