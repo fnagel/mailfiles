@@ -5,7 +5,7 @@
     "author": [],
     "require": {
         "php": ">=5.5.0,<7.1",
-        "typo3/cms-core": ">=7.6.0,<=8.6"
+        "typo3/cms-core": ">=7.6.0,<=8.7"
     },
     "autoload": {
         "psr-4": {

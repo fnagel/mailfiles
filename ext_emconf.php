@@ -24,7 +24,7 @@ $EM_CONF[$_EXTKEY] = array(
     'constraints' => array(
         'depends' => array(
             'php' => '5.5.0-7.0.99',
-            'typo3' => '7.6.0-8.6.99',
+            'typo3' => '7.6.0-8.7.99',
             'pluploadfe' => '1.4.0-1.5.99',
         ),
         'conflicts' => array(),
