@@ -7,8 +7,8 @@ TYPO3 CMS Extension to upload files and send download links via email.
 Description
 -----------
 
-This extension provides a simple form with a pluploadfe upload widget, 
-a textarea for adding a message, a "auto-send" checkbox and a submit button.
+This extension provides a simple form with a Pluploadfe upload widget, a simple text input 
+used as mail subject, a textarea for adding a message, a "auto-send" checkbox and a submit button.
 
 If the "auto-send" checkbox is checked the form will be auto submitted 
 once uploading is completed.
@@ -18,8 +18,8 @@ Installation
 ------------
 
 * EXT:pluploadfe should work without problems (see pluploadfe documentation)
-* Add "Mail Files: default config" static template to your root template.
-* Configure the plugin options via TS (see static template in pi1/static/setup.txt)
+* Add "Mail Files: default config" static template to your TypoScript template.
+* Configure the plugin options via TS (see static template in `Configuration/TypoScript/setup.txt`)
 * Add plugin to a page and specify pluploadfe configuration record
 
 _Note:_ Make sure to enable "Authenticated frontend user needed" option in pluploadfe config record.
@@ -44,6 +44,3 @@ Donation
 --------
 
 Please consider a donation: http://www.felixnagel.com/donate/
-
-
-
