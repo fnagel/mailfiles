@@ -14,9 +14,16 @@
 			"role": "Developer"
 		}
 	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://composer.typo3.org/"
+		}
+	],
     "require": {
         "php": ">=5.5.0,<7.2",
-        "typo3/cms-core": ">=7.6.0,<=8.7"
+        "typo3/cms-core": ">=7.6.0,<=8.7",
+        "typo3-ter/pluploadfe": ">=1.4.0,<=1.7"
     },
     "autoload": {
         "psr-4": {
