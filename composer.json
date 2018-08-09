@@ -2,7 +2,18 @@
     "name": "felixnagel/mailfiles",
     "type": "typo3-cms-extension",
     "description": "",
-    "author": [],
+	"homepage": "https://github.com/mailfiles/pluploadfe",
+	"support": {
+		"issues": "https://github.com/fnagel/mailfiles/issues"
+	},
+	"authors": [
+		{
+			"name": "Felix Nagel",
+			"email": "info@felixnagel.com",
+			"homepage": "http://www.felixnagel.com",
+			"role": "Developer"
+		}
+	],
     "require": {
         "php": ">=5.5.0,<7.2",
         "typo3/cms-core": ">=7.6.0,<=8.7"
