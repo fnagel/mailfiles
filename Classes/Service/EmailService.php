@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\Mailfiles\Service;
+namespace FelixNagel\Mailfiles\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2017 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *

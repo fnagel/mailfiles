@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\Mailfiles\Domain\Model;
+namespace FelixNagel\Mailfiles\Domain\Model;
 
 /***
  *
@@ -9,7 +9,7 @@ namespace TYPO3\Mailfiles\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2011-2017 Felix Nagel <info@felixnagel.com>
+ * (c) 2011-2018 Felix Nagel <info@felixnagel.com>
  *
  ***/
 

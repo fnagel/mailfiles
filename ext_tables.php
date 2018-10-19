@@ -16,7 +16,7 @@ call_user_func(
 
         // Add plugin
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'TYPO3.Mailfiles',
+            'FelixNagel.Mailfiles',
             'Pi1',
             'LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xlf:plugin.title'
         );

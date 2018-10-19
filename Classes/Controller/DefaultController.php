@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\Mailfiles\Controller;
+namespace FelixNagel\Mailfiles\Controller;
 
 /***
  *
@@ -9,7 +9,7 @@ namespace TYPO3\Mailfiles\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2011-2017 Felix Nagel <info@felixnagel.com>
+ * (c) 2011-2018 Felix Nagel <info@felixnagel.com>
  *
  ***/
 
@@ -24,7 +24,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
-     * @var \TYPO3\Mailfiles\Service\EmailService
+     * @var \FelixNagel\Mailfiles\Service\EmailService
      * @inject
      */
     protected $emailService;
@@ -57,9 +57,9 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action create.
      *
-     * @param \TYPO3\Mailfiles\Domain\Model\Mail $newMail
+     * @param \FelixNagel\Mailfiles\Domain\Model\Mail $newMail
      */
-    public function createAction(\TYPO3\Mailfiles\Domain\Model\Mail $newMail)
+    public function createAction(\FelixNagel\Mailfiles\Domain\Model\Mail $newMail)
     {
         $result = $this->sendEmail(
             // See 2.1.1. Line Length Limits, http://www.faqs.org/rfcs/rfc2822.html
