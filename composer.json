@@ -1,7 +1,7 @@
 {
     "name": "felixnagel/mailfiles",
     "type": "typo3-cms-extension",
-    "description": "",
+    "description": "Upload files and send download links via email. Uses plupload. Please see readme file.",
 	"homepage": "https://github.com/mailfiles/pluploadfe",
 	"support": {
 		"issues": "https://github.com/fnagel/mailfiles/issues"
@@ -14,12 +14,6 @@
 			"role": "Developer"
 		}
 	],
-	"repositories": [
-		{
-			"type": "composer",
-			"url": "https://composer.typo3.org/"
-		}
-	],
     "require": {
         "php": ">=5.5.0,<7.2",
         "typo3/cms-core": ">=7.6.0,<=8.7",
@@ -29,5 +23,15 @@
         "psr-4": {
             "FelixNagel\\Mailfiles\\": "Classes"
         }
-    }
+    },
+	"replace": {
+		"mailfiles": "self.version",
+		"typo3-ter/mailfiles": "self.version"
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/TYPO3/TYPO3.CMS"
+		}
+	]
 }
