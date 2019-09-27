@@ -9,7 +9,7 @@ namespace FelixNagel\Mailfiles\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2011-2018 Felix Nagel <info@felixnagel.com>
+ * (c) 2011-2019 Felix Nagel <info@felixnagel.com>
  *
  ***/
 
@@ -63,8 +63,9 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $result = $this->sendEmail(
             // See 2.1.1. Line Length Limits, http://www.faqs.org/rfcs/rfc2822.html
-            substr($this->sanitizeString($newMail->getSubject()), 0, 78),
-            $this->sanitizeString($newMail->getMessage()),
+            substr(filter_var(strip_tags($newMail->getSubject()), FILTER_SANITIZE_STRING), 0, 78),
+            // String will be escaped by fluid, but we don't want tags anyway
+            strip_tags($newMail->getMessage()),
             $this->getFilesInSession()
         );
 
@@ -140,16 +141,6 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $this->getTsFeController()->fe_user->setKey('ses', 'tx_pluploadfe_files', '');
         $this->getTsFeController()->fe_user->storeSessionData();
-    }
-
-    /**
-     * @param $string
-     *
-     * @return string
-     */
-    protected function sanitizeString($string)
-    {
-        return GeneralUtility::removeXSS(strip_tags($string));
     }
 
     /**
