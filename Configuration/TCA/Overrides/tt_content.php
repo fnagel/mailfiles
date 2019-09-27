@@ -33,4 +33,10 @@ call_user_func(function ($packageKey) {
     $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'tx_mailfiles_pluploadfe_config';
     $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages,recursive';
 
+    // Add plugin
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+        'FelixNagel.Mailfiles',
+        'Pi1',
+        'LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xlf:plugin.title'
+    );
 }, 'mailfiles');
