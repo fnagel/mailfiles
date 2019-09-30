@@ -129,10 +129,10 @@ class EmailService implements SingletonInterface
         }
 
         $emailView->assignMultiple($variables);
-        $emailView->assignMultiple(array(
+        $emailView->assignMultiple([
             'timestamp' => $GLOBALS['EXEC_TIME'],
             'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
-        ));
+        ]);
 
         return $emailView->render();
     }

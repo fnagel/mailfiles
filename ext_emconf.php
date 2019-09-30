@@ -10,7 +10,7 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'Mail Files',
     'description' => 'Upload files and send download links via email. Uses plupload. Please see readme file.',
     'category' => 'plugin',
@@ -21,13 +21,13 @@ $EM_CONF[$_EXTKEY] = array(
     'uploadfolder' => 0,
     'clearCacheOnLoad' => 0,
     'version' => '3.0.0-dev',
-    'constraints' => array(
-        'depends' => array(
+    'constraints' => [
+        'depends' => [
             'php' => '7.0.0-7.2.99',
             'typo3' => '8.7.0-9.5.99',
             'pluploadfe' => '1.4.0-3.0.99',
-        ),
-        'conflicts' => array(),
-        'suggests' => array(),
-    ),
-);
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
+];

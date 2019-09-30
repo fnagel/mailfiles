@@ -49,9 +49,9 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function newAction()
     {
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple([
             'plupload' => $this->renderPlupload(),
-        ));
+        ]);
     }
 
     /**
@@ -86,19 +86,19 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      *
      * @return bool
      */
-    protected function sendEmail($subject, $message, $files = array())
+    protected function sendEmail($subject, $message, $files = [])
     {
         $mailTo = $this->settings['mailTo'];
         $mailFrom = $this->settings['mailFrom'];
 
         return $this->emailService->sendEmail(
-            array($mailTo['email'] => empty($mailTo['name']) ? null : $mailTo['name']),
-            array($mailFrom['email'] => empty($mailFrom['name']) ? null : $mailFrom['name']),
+            [$mailTo['email'] => empty($mailTo['name']) ? null : $mailTo['name']],
+            [$mailFrom['email'] => empty($mailFrom['name']) ? null : $mailFrom['name']],
             empty($subject) ? $this->settings['mailSubjectDefault'] : $subject,
-            array(
+            [
                 'message' => $message,
                 'files' => $files,
-            ),
+            ],
             $this->settings['mailTemplate']
         );
     }
