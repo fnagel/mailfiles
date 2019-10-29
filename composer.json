@@ -2,6 +2,7 @@
     "name": "felixnagel/mailfiles",
     "type": "typo3-cms-extension",
     "description": "Upload files and send download links via email. Uses plupload. Please see readme file.",
+	"license": "GPL-2.0-or-later",
 	"homepage": "https://github.com/mailfiles/pluploadfe",
 	"support": {
 		"issues": "https://github.com/fnagel/mailfiles/issues"

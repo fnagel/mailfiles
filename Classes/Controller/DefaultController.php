@@ -2,16 +2,12 @@
 
 namespace FelixNagel\Mailfiles\Controller;
 
-/***
- *
+/**
  * This file is part of the "mailesfiles" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
- * (c) 2011-2019 Felix Nagel <info@felixnagel.com>
- *
- ***/
+ */
 
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

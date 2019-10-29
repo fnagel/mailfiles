@@ -2,16 +2,12 @@
 
 namespace FelixNagel\Mailfiles\Domain\Model;
 
-/***
- *
- * This file is part of the "mailesfiles2" Extension for TYPO3 CMS.
+/**
+ * This file is part of the "mailesfiles" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
- * (c) 2011-2018 Felix Nagel <info@felixnagel.com>
- *
- ***/
+ */
 
 /**
  * Mail.
