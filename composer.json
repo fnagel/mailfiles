@@ -28,7 +28,6 @@
         }
     },
 	"replace": {
-		"mailfiles": "self.version",
 		"typo3-ter/mailfiles": "self.version"
 	},
 	"repositories": [
