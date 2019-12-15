@@ -104,13 +104,7 @@ class EmailService implements SingletonInterface
      */
     public function render($variables, $templatePath)
     {
-        if (version_compare(TYPO3_branch, '8.0', '>=')) {
-            $emailView = $this->getEmailViewFor8x($templatePath);
-        } else {
-            // @todo Remove this when 7.x is no longer relevant
-            $emailView = $this->getEmailViewFor7x($templatePath);
-        }
-
+        $emailView = $this->getEmailViewFor8x($templatePath);
         $emailView->assignMultiple($variables);
         $emailView->assignMultiple([
             'timestamp' => $GLOBALS['EXEC_TIME'],
