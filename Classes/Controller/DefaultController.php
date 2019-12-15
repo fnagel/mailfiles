@@ -10,7 +10,6 @@ namespace FelixNagel\Mailfiles\Controller;
  */
 
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -146,7 +145,7 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected function translate($key)
     {
-        $translation = LocalizationUtility::translate($key, $this->extensionName);
+        $translation = LocalizationUtility::translate($key, $this->request->getControllerExtensionName());
 
         return empty($translation) ? $key : $translation;
     }
