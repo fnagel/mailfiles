@@ -21,7 +21,7 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 {
     /**
      * @var \FelixNagel\Mailfiles\Service\EmailService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $emailService;
 
