@@ -9,6 +9,8 @@ namespace FelixNagel\Mailfiles\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Annotation as Extbase;
+
 /**
  * Mail.
  */
@@ -18,7 +20,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * subject.
      *
      * @var string
-     * @validate Text
+     * @Extbase\Validate("Text")
      */
     protected $subject = '';
 
@@ -26,7 +28,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * message.
      *
      * @var string
-     * @validate Text
+     * @Extbase\Validate("Text")
      */
     protected $message = '';
 
