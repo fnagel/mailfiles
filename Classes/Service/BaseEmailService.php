@@ -9,6 +9,7 @@ namespace FelixNagel\Mailfiles\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
@@ -18,7 +19,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 /**
  * Handles email sending and templating.
  */
-class EmailService implements SingletonInterface
+abstract class BaseEmailService implements SingletonInterface
 {
     const TEMPLATE_FOLDER = 'Email';
 
@@ -67,7 +68,7 @@ class EmailService implements SingletonInterface
      *
      * @return int the number of recipients who were accepted for delivery
      */
-    public function send($mailTo, $mailFrom, $subject, $emailBody)
+    protected function send($mailTo, $mailFrom, $subject, $emailBody)
     {
         if (!($mailTo && is_array($mailTo) && GeneralUtility::validEmail(key($mailTo)))) {
             return false;
@@ -77,17 +78,13 @@ class EmailService implements SingletonInterface
             $mailFrom = MailUtility::getSystemFrom();
         }
 
-        $message = $this->createMailMessage();
-        $message
-            ->setSubject($subject)
-            ->setTo($mailTo)
-            ->setFrom($mailFrom);
-
-        if (strip_tags($emailBody) == $emailBody) {
-            $message->setBody($emailBody, 'text/plain');
-        } else {
-            $message->setBody($emailBody, 'text/html');
-        }
+        $message = $this->populateMailMessage(
+            $this->createMailMessage(),
+            $mailTo,
+            $mailFrom,
+            $subject,
+            $emailBody
+        );
 
         $message->send();
 
@@ -102,9 +99,9 @@ class EmailService implements SingletonInterface
      *
      * @return string
      */
-    public function render($variables, $templatePath)
+    protected function render($variables, $templatePath)
     {
-        $emailView = $this->getEmailViewFor8x($templatePath);
+        $emailView = $this->getEmailView($templatePath);
         $emailView->assignMultiple($variables);
         $emailView->assignMultiple([
             'timestamp' => $GLOBALS['EXEC_TIME'],
@@ -121,26 +118,7 @@ class EmailService implements SingletonInterface
      *
      * @return StandaloneView
      */
-    public function getEmailViewFor7x($templateFile)
-    {
-        $emailView = $this->createStandaloneView();
-
-        $format = pathinfo($templateFile, PATHINFO_EXTENSION);
-        $emailView->setFormat($format);
-
-        $emailView->setTemplate(self::TEMPLATE_FOLDER.DIRECTORY_SEPARATOR.$templateFile);
-
-        return $emailView;
-    }
-
-    /**
-     * Create and configure the view.
-     *
-     * @param string $templateFile Choose a template
-     *
-     * @return StandaloneView
-     */
-    public function getEmailViewFor8x($templateFile)
+    protected function getEmailView($templateFile)
     {
         $emailView = $this->createStandaloneView();
 
@@ -192,20 +170,25 @@ class EmailService implements SingletonInterface
     }
 
     /**
+     * This is the main-function for sending Mails.
+     *
+     * @param MailMessage $message
+     * @param array $mailTo
+     * @param array $mailFrom
+     * @param string $subject
+     * @param string $emailBody
+     *
+     * @return MailMessage
+     */
+    abstract protected function populateMailMessage(MailMessage $message, $mailTo, $mailFrom, $subject, $emailBody);
+
+    /**
      * Create mail message.
      *
-     * @return \TYPO3\CMS\Core\Mail\MailMessage
+     * @return MailMessage
      */
     protected function createMailMessage()
     {
-        $message = $this->objectManager->get(
-            'TYPO3\\CMS\\Core\\Mail\\MailMessage',
-            null,
-            null,
-            null,
-            $GLOBALS['TSFE']->metaCharset
-        );
-
-        return $message;
+        return $this->objectManager->get(MailMessage::class);
     }
 }

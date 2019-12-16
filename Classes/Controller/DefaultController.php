@@ -9,6 +9,8 @@ namespace FelixNagel\Mailfiles\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\Mailfiles\Service\SymfonyEmailService;
+use FelixNagel\Mailfiles\Service\Typo3EmailService;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -18,12 +20,6 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-    /**
-     * @var \FelixNagel\Mailfiles\Service\EmailService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $emailService;
-
     /**
      * {@inheritdoc}
      *
@@ -86,7 +82,13 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $mailTo = $this->settings['mailTo'];
         $mailFrom = $this->settings['mailFrom'];
 
-        return $this->emailService->sendEmail(
+        if (version_compare(TYPO3_version, '10.0', '>=')) {
+            $emailService = $this->objectManager->get(SymfonyEmailService::class);
+        } else {
+            $emailService = $this->objectManager->get(Typo3EmailService::class);
+        }
+
+        return $emailService->sendEmail(
             [$mailTo['email'] => empty($mailTo['name']) ? null : $mailTo['name']],
             [$mailFrom['email'] => empty($mailFrom['name']) ? null : $mailFrom['name']],
             empty($subject) ? $this->settings['mailSubjectDefault'] : $subject,
