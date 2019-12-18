@@ -11,7 +11,7 @@ call_user_func(
         $iconRegistry->registerIcon(
             'extensions-mailfiles-wizard',
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:mailfiles/Resources/Public/Icons/plugin.png']
+            ['source' => 'EXT:mailfiles/Resources/Public/Icons/Extension.png']
         );
     }
 );
