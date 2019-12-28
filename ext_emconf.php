@@ -24,7 +24,7 @@ $EM_CONF[$_EXTKEY] = [
         'depends' => [
             'php' => '7.0.0-7.2.99',
             'typo3' => '9.0.0-10.2.99',
-            'pluploadfe' => '2.0.0-3.0.99',
+            'pluploadfe' => '2.0.0-4.9.99',
         ],
         'conflicts' => [],
         'suggests' => [],
