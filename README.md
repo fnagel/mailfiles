@@ -22,7 +22,7 @@ Installation
 * Configure the plugin options via TS (see static template in `Configuration/TypoScript/setup.txt`)
 * Add plugin to a page and specify pluploadfe configuration record
 
-_Note:_ Make sure to enable "Authenticated frontend user needed" option in pluploadfe config record.
+_Note:_ Make sure to enable "Save filepaths in user session" option in pluploadfe config record!
 
 
 Plupload
