@@ -10,7 +10,6 @@ namespace FelixNagel\Mailfiles\Controller;
  */
 
 use FelixNagel\Mailfiles\Service\SymfonyEmailService;
-use FelixNagel\Mailfiles\Service\Typo3EmailService;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -82,11 +81,7 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $mailTo = $this->settings['mailTo'];
         $mailFrom = $this->settings['mailFrom'];
 
-        if (version_compare(TYPO3_version, '10.0', '>=')) {
-            $emailService = $this->objectManager->get(SymfonyEmailService::class);
-        } else {
-            $emailService = $this->objectManager->get(Typo3EmailService::class);
-        }
+		$emailService = $this->objectManager->get(SymfonyEmailService::class);
 
         return $emailService->sendEmail(
             [$mailTo['email'] => empty($mailTo['name']) ? null : $mailTo['name']],
