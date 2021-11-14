@@ -15,32 +15,35 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Core\Context\Context;
 
 /**
  * Handles email sending and templating.
  */
 abstract class BaseEmailService implements SingletonInterface
 {
-    const TEMPLATE_FOLDER = 'Email';
+    /**
+     * @var string
+     */
+    public const TEMPLATE_FOLDER = 'Email';
 
     /**
      * Extension name.
-     *
-     * @var string
      */
-    protected $extensionName = 'mailfiles';
+    protected string $extensionName = 'mailfiles';
 
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $objectManager;
+	public ?ObjectManagerInterface $objectManager = null;
 
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $configurationManager;
+	public ?ConfigurationManagerInterface $configurationManager = null;
 
     /**
      * This is the main-function for sending Mails.
@@ -104,7 +107,7 @@ abstract class BaseEmailService implements SingletonInterface
         $emailView = $this->getEmailView($templatePath);
         $emailView->assignMultiple($variables);
         $emailView->assignMultiple([
-            'timestamp' => $GLOBALS['EXEC_TIME'],
+            'timestamp' => GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'),
             'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
         ]);
 
@@ -137,8 +140,8 @@ abstract class BaseEmailService implements SingletonInterface
      */
     protected function createStandaloneView()
     {
-        /* @var $emailView \TYPO3\CMS\Fluid\View\StandaloneView */
-        $emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        /* @var $emailView StandaloneView */
+        $emailView = $this->objectManager->get(StandaloneView::class);
         $emailView->getRequest()->setPluginName('');
         $emailView->getRequest()->setControllerExtensionName($this->extensionName);
 
@@ -148,7 +151,7 @@ abstract class BaseEmailService implements SingletonInterface
     }
 
     /**
-     * @param \TYPO3\CMS\Fluid\View\StandaloneView $emailView
+     * @param StandaloneView $emailView
      */
     protected function setViewPaths($emailView)
     {
@@ -161,9 +164,11 @@ abstract class BaseEmailService implements SingletonInterface
         if (isset($frameworkConfig['view']['layoutRootPaths'])) {
             $emailView->setLayoutRootPaths($frameworkConfig['view']['layoutRootPaths']);
         }
+
         if (isset($frameworkConfig['view']['partialRootPaths'])) {
             $emailView->setPartialRootPaths($frameworkConfig['view']['partialRootPaths']);
         }
+
         if (isset($frameworkConfig['view']['templateRootPaths'])) {
             $emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
         }
@@ -172,12 +177,10 @@ abstract class BaseEmailService implements SingletonInterface
     /**
      * This is the main-function for sending Mails.
      *
-     * @param MailMessage $message
      * @param array $mailTo
      * @param array $mailFrom
      * @param string $subject
      * @param string $emailBody
-     *
      * @return MailMessage
      */
     abstract protected function populateMailMessage(MailMessage $message, $mailTo, $mailFrom, $subject, $emailBody);

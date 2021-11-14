@@ -13,11 +13,14 @@ use FelixNagel\Mailfiles\Service\SymfonyEmailService;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use Psr\Http\Message\ResponseInterface;
+use FelixNagel\Mailfiles\Domain\Model\Mail;
 
 /**
  * DefaultController.
  */
-class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class DefaultController extends ActionController
 {
     /**
      * {@inheritdoc}
@@ -29,6 +32,7 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if (!ExtensionManagementUtility::isLoaded('pluploadfe')) {
             throw new \Exception('EXT:pluploadfe is not installed!');
         }
+
         if (empty($this->settings['mailTo']['email'])) {
             throw new \Exception('No mail to address given!');
         }
@@ -37,19 +41,18 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action new.
      */
-    public function newAction()
+    public function newAction(): ResponseInterface
     {
         $this->view->assignMultiple([
             'plupload' => $this->renderPlupload(),
         ]);
+        return $this->htmlResponse();
     }
 
     /**
      * action create.
-     *
-     * @param \FelixNagel\Mailfiles\Domain\Model\Mail $newMail
      */
-    public function createAction(\FelixNagel\Mailfiles\Domain\Model\Mail $newMail)
+    public function createAction(Mail $newMail)
     {
         $result = $this->sendEmail(
             // See 2.1.1. Line Length Limits, http://www.faqs.org/rfcs/rfc2822.html
@@ -59,7 +62,7 @@ class DefaultController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->getFilesInSession()
         );
 
-        if ($result === true) {
+        if ($result) {
             $this->addFlashMessage($this->translate('flashMessage.success'), '', AbstractMessage::OK);
         } else {
             $this->addFlashMessage($this->translate('flashMessage.error'), '', AbstractMessage::ERROR);

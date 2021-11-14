@@ -10,11 +10,12 @@ namespace FelixNagel\Mailfiles\Domain\Model;
  */
 
 use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
  * Mail.
  */
-class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Mail extends AbstractEntity
 {
     /**
      * subject.
@@ -22,7 +23,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      * @Extbase\Validate("Text")
      */
-    protected $subject = '';
+    protected string $subject = '';
 
     /**
      * message.
@@ -30,7 +31,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      * @Extbase\Validate("Text")
      */
-    protected $message = '';
+    protected string $message = '';
 
     /**
      * Returns the subject.

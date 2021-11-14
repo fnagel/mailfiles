@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('TYPO3_MODE')) {
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
@@ -35,7 +35,7 @@ call_user_func(function ($packageKey) {
 
     // Add plugin
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'FelixNagel.Mailfiles',
+        'Mailfiles',
         'Pi1',
         'LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xlf:plugin.title'
     );
