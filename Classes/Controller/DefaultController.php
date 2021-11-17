@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use Psr\Http\Message\ResponseInterface;
 use FelixNagel\Mailfiles\Domain\Model\Mail;
 
 /**
@@ -41,12 +40,11 @@ class DefaultController extends ActionController
     /**
      * action new.
      */
-    public function newAction(): ResponseInterface
+    public function newAction()
     {
         $this->view->assignMultiple([
             'plupload' => $this->renderPlupload(),
         ]);
-        return $this->htmlResponse();
     }
 
     /**
