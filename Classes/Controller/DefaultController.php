@@ -103,6 +103,7 @@ class DefaultController extends ActionController
      */
     protected function renderPlupload()
     {
+        // @extensionScannerIgnoreLine
         $contentObject = $this->configurationManager->getContentObject();
 
         if (!is_numeric($this->settings['pluploadfe']['configUid'])) {
@@ -135,6 +136,7 @@ class DefaultController extends ActionController
     protected function resetFilesInSession()
     {
         $this->getTsFeController()->fe_user->setKey('ses', 'tx_pluploadfe_files', '');
+        // @extensionScannerIgnoreLine
         $this->getTsFeController()->fe_user->storeSessionData();
     }
 
