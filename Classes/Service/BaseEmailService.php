@@ -58,6 +58,7 @@ abstract class BaseEmailService implements SingletonInterface
      */
     public function sendEmail($mailTo, $mailFrom, $subject, $variables, $templatePath)
     {
+		// @extensionScannerIgnoreLine
         return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));
     }
 
