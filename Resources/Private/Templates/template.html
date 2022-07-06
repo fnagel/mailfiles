@@ -11,7 +11,8 @@
 			form = uploader.closest('.tx-mailfiles').find('form'),
 			button = form.find(':submit').prop('disabled', true).addClass(' disabled ui-state-disabled'),
 			auto = form.find(':checkbox'),
-			errorMsg = 'Error: ',
+			langPrefix = 'pluploadfe_error_',
+			message,
 			json;
 
 		uploader.pluploadQueue({
@@ -30,7 +31,10 @@
 				// Remove this when using chunked uploads
 				max_file_size: '###FILE_MAX_SIZE###',
 				mime_types: [
-					{title: "Allowed files", extensions : "###FILE_EXTENSIONS###"}
+					{
+						title: "Allowed files",
+						extensions: "###FILE_EXTENSIONS###"
+					}
 				]
 			},
 
@@ -40,23 +44,35 @@
 			// Silverlight settings
 			silverlight_xap_url: '###EXTDIR_PATH###Resources/Public/JavaScript/plupload/js/Moxie.xap',
 
-		   	// Post init events, bound after the internal events
+			// Post init events, bound after the internal events
 			init: {
 				Error: function(up, error) {
 					json = $.parseJSON(error.response);
+					message = error.message;
+
 					if (json.error) {
-						error.message += " " + json.error.message;
+						// Localize message if possible
+						if (json.error.messageKey && TYPO3.lang && TYPO3.lang[langPrefix + json.error.messageKey]) {
+							message = TYPO3.lang[langPrefix + json.error.messageKey];
+						} else {
+							message = json.error.message;
+						}
+
+						// Add filename if available
+						if (json.error.messageArguments.filename) {
+							message = json.error.messageArguments.filename + "\n\n" + message;
+						}
 					}
 
-					alert(error.message);
+					alert(message);
 				},
-				FileUploaded: function(up, file, result) {
-				   json = $.parseJSON(result.response);
-				   if (json.error) {
-					   file.status = plupload.FAILED;
-					   errorMsg += json.error.message;
-					   alert(errorMsg);
-				   }
+				FileUploaded: function(up, file, info) {
+					json = $.parseJSON(info.response);
+
+					if (json.error) {
+						file.status = plupload.FAILED;
+						alert(json.error.message);
+					}
 				},
 				UploadComplete: function() {
 				   button.prop('disabled', false ).removeClass('disabled ui-state-disabled');
@@ -66,8 +82,8 @@
 					   }, 500);
 				   }
 				}
-		   	}
-	   });
+			}
+		});
 	});
 	// ###TEMPLATE_CODE###
 	</script>
