@@ -42,8 +42,11 @@ class DefaultController extends ActionController
      */
     public function newAction()
     {
+        // @extensionScannerIgnoreLine
+        $contentObject = $this->configurationManager->getContentObject();
+
         $this->view->assignMultiple([
-            'plupload' => $this->renderPlupload(),
+            'configUid' => (int) $contentObject->data['tx_mailfiles_pluploadfe_config']
         ]);
     }
 
@@ -97,24 +100,6 @@ class DefaultController extends ActionController
     }
 
     /**
-     * @return mixed
-     */
-    protected function renderPlupload()
-    {
-        // @extensionScannerIgnoreLine
-        $contentObject = $this->configurationManager->getContentObject();
-
-        if (!is_numeric($this->settings['pluploadfe']['configUid'])) {
-            $this->settings['pluploadfe']['configUid'] = (int) $contentObject->data['tx_mailfiles_pluploadfe_config'];
-        }
-
-        return $contentObject->cObjGetSingle(
-            $this->settings['pluploadfe']['_typoScriptNodeValue'],
-            $this->settings['pluploadfe']
-        );
-    }
-
-    /**
      * @return array
      */
     protected function getFilesInSession()
@@ -130,6 +115,7 @@ class DefaultController extends ActionController
     }
 
     /**
+     * @todo Add config uid to session key with next major version of EXT:pluploadfe!
      */
     protected function resetFilesInSession()
     {
