@@ -18,9 +18,9 @@
 		}
 	],
     "require": {
-		"php": ">=7.2,<8.1",
-		"typo3/cms-core": ">=10.4.0,<=11.5.99",
-        "felixnagel/pluploadfe": ">=2.0.0,<=5.9.99 || dev-master"
+		"php": ">=7.4,<8.1",
+		"typo3/cms-core": ">=11.0.0,<=11.5.99",
+        "felixnagel/pluploadfe": ">=6.0.0,<=6.9.99 || dev-master"
     },
     "autoload": {
         "psr-4": {
