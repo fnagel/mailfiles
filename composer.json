@@ -18,7 +18,7 @@
 		}
 	],
     "require": {
-		"php": ">=7.4,<8.1",
+		"php": ">=7.4,<8.2",
 		"typo3/cms-core": ">=11.0.0,<=11.5.99",
         "felixnagel/pluploadfe": ">=6.0.0,<=6.9.99 || dev-master"
     },
