@@ -57,7 +57,7 @@ class DefaultController extends ActionController
     {
         $result = $this->sendEmail(
             // See 2.1.1. Line Length Limits, http://www.faqs.org/rfcs/rfc2822.html
-            substr(filter_var(strip_tags($newMail->getSubject()), FILTER_SANITIZE_STRING), 0, 78),
+            substr(htmlspecialchars(strip_tags($newMail->getSubject())), 0, 78),
             // String will be escaped by fluid, but we don't want tags anyway
             strip_tags($newMail->getMessage()),
             $this->getFilesInSession()
