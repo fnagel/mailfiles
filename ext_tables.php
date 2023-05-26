@@ -1,16 +1,17 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
+use TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider;
+
 defined('TYPO3') || die('Access denied.');
 
 call_user_func(
-    function () {
-        /* @var $iconRegistry TYPO3\CMS\Core\Imaging\IconRegistry */
-        $iconRegistry = TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            TYPO3\CMS\Core\Imaging\IconRegistry::class
-        );
+    static function () {
+        $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
         $iconRegistry->registerIcon(
             'extensions-mailfiles-wizard',
-            TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+            BitmapIconProvider::class,
             ['source' => 'EXT:mailfiles/Resources/Public/Icons/Extension.png']
         );
     }

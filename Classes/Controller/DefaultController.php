@@ -9,6 +9,8 @@ namespace FelixNagel\Mailfiles\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use FelixNagel\Mailfiles\Service\SymfonyEmailService;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -40,7 +42,7 @@ class DefaultController extends ActionController
     /**
      * action new.
      */
-    public function newAction()
+    public function newAction(): ResponseInterface
     {
         // @extensionScannerIgnoreLine
         $contentObject = $this->configurationManager->getContentObject();
@@ -48,12 +50,14 @@ class DefaultController extends ActionController
         $this->view->assignMultiple([
             'configUid' => (int) $contentObject->data['tx_mailfiles_pluploadfe_config']
         ]);
+
+        return $this->htmlResponse();
     }
 
     /**
      * action create.
      */
-    public function createAction(Mail $newMail)
+    public function createAction(Mail $newMail): ResponseInterface
     {
         $result = $this->sendEmail(
             // See 2.1.1. Line Length Limits, http://www.faqs.org/rfcs/rfc2822.html
@@ -70,7 +74,8 @@ class DefaultController extends ActionController
         }
 
         $this->resetFilesInSession();
-        $this->redirect('new');
+
+        return $this->redirect('new');
     }
 
     /**
@@ -124,22 +129,14 @@ class DefaultController extends ActionController
         $this->getTsFeController()->fe_user->storeSessionData();
     }
 
-    /**
-     * @param $key
-     *
-     * @return null|string
-     */
-    protected function translate($key)
+    protected function translate(string $key): ?string
     {
         $translation = LocalizationUtility::translate($key, $this->request->getControllerExtensionName());
 
         return empty($translation) ? $key : $translation;
     }
 
-    /**
-     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-     */
-    protected function getTsFeController()
+    protected function getTsFeController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
     }

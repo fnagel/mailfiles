@@ -34,9 +34,9 @@ class SymfonyEmailService extends BaseEmailService
             ->from(new Address(key($mailFrom), current($mailFrom) || ''));
 
         if (strip_tags($emailBody) === $emailBody) {
-            $message->text($emailBody, $GLOBALS['TSFE']->metaCharset);
+            $message->text($emailBody);
         } else {
-            $message->html($emailBody, $GLOBALS['TSFE']->metaCharset);
+            $message->html($emailBody);
         }
 
         return $message;

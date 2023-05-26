@@ -1,24 +1,28 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use FelixNagel\Mailfiles\Controller\DefaultController;
+
 defined('TYPO3') || die('Access denied.');
 
 call_user_func(
-    function () {
+    static function () {
         // Add page TS config
-        TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+        ExtensionManagementUtility::addPageTSConfig(
             '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:mailfiles/Configuration/TSconfig/page.tsconfig">'
         );
 
         // Configure plugin
-        TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        ExtensionUtility::configurePlugin(
             'Mailfiles',
             'Pi1',
             [
-                FelixNagel\Mailfiles\Controller\DefaultController::class => 'new, create',
+                DefaultController::class => 'new, create',
             ],
             // non-cacheable actions
             [
-                FelixNagel\Mailfiles\Controller\DefaultController::class => 'new, create',
+                DefaultController::class => 'new, create',
             ]
         );
     }

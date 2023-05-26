@@ -21,16 +21,16 @@ class Mail extends AbstractEntity
      * subject.
      *
      * @var string
-     * @Extbase\Validate("Text")
      */
+    #[Extbase\Validate(['validator' => 'Text'])]
     protected string $subject = '';
 
     /**
      * message.
      *
      * @var string
-     * @Extbase\Validate("Text")
      */
+    #[Extbase\Validate(['validator' => 'Text'])]
     protected string $message = '';
 
     /**
