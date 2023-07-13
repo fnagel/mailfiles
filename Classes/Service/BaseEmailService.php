@@ -27,9 +27,6 @@ abstract class BaseEmailService implements SingletonInterface
      */
     public const TEMPLATE_FOLDER = 'Email';
 
-    /**
-     * Extension name.
-     */
     protected string $extensionName = 'mailfiles';
 
     public ?ConfigurationManagerInterface $configurationManager = null;
@@ -42,15 +39,9 @@ abstract class BaseEmailService implements SingletonInterface
     /**
      * This is the main-function for sending Mails.
      *
-     * @param array  $mailTo
-     * @param array  $mailFrom
-     * @param string $subject
-     * @param array  $variables
-     * @param string $templatePath
-     *
-     * @return int the number of recipients who were accepted for delivery
+     * @return int The number of recipients who were accepted for delivery
      */
-    public function sendEmail($mailTo, $mailFrom, $subject, $variables, $templatePath)
+    public function sendEmail(array $mailTo, array $mailFrom, string $subject, array $variables, string $templatePath): int
     {
 		// @extensionScannerIgnoreLine
         return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));
@@ -59,14 +50,9 @@ abstract class BaseEmailService implements SingletonInterface
     /**
      * This is the main-function for sending Mails.
      *
-     * @param array  $mailTo
-     * @param array  $mailFrom
-     * @param string $subject
-     * @param string $emailBody
-     *
-     * @return int the number of recipients who were accepted for delivery
+     * @return int The number of recipients who were accepted for delivery
      */
-    protected function send($mailTo, $mailFrom, $subject, $emailBody)
+    protected function send(array $mailTo, array $mailFrom, string $subject, string $emailBody): int
     {
         if (!($mailTo && is_array($mailTo) && GeneralUtility::validEmail(key($mailTo)))) {
             return false;
@@ -91,13 +77,8 @@ abstract class BaseEmailService implements SingletonInterface
 
     /**
      * This functions renders template to use in Mails and Other views.
-     *
-     * @param array  $variables    Arguments for template
-     * @param string $templatePath Choose a template
-     *
-     * @return string
      */
-    protected function render($variables, $templatePath)
+    protected function render(array $variables, string $templatePath): string
     {
         $emailView = $this->getEmailView($templatePath);
         $emailView->assignMultiple($variables);
@@ -111,12 +92,8 @@ abstract class BaseEmailService implements SingletonInterface
 
     /**
      * Create and configure the view.
-     *
-     * @param string $templateFile Choose a template
-     *
-     * @return StandaloneView
      */
-    protected function getEmailView($templateFile)
+    protected function getEmailView(string $templateFile): StandaloneView
     {
         $emailView = $this->createStandaloneView();
 
@@ -130,25 +107,17 @@ abstract class BaseEmailService implements SingletonInterface
         return $emailView;
     }
 
-    /**
-     * @return StandaloneView
-     */
-    protected function createStandaloneView()
+    protected function createStandaloneView(): StandaloneView
     {
         /* @var $emailView StandaloneView */
-        $emailView = $this->objectManager->get(StandaloneView::class);
-        $emailView->getRequest()->setPluginName('');
-        $emailView->getRequest()->setControllerExtensionName($this->extensionName);
+        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
 
         $this->setViewPaths($emailView);
 
         return $emailView;
     }
 
-    /**
-     * @param StandaloneView $emailView
-     */
-    protected function setViewPaths($emailView)
+    protected function setViewPaths(StandaloneView $emailView)
     {
         $frameworkConfig = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
@@ -171,22 +140,17 @@ abstract class BaseEmailService implements SingletonInterface
 
     /**
      * This is the main-function for sending Mails.
-     *
-     * @param array $mailTo
-     * @param array $mailFrom
-     * @param string $subject
-     * @param string $emailBody
-     * @return MailMessage
      */
-    abstract protected function populateMailMessage(MailMessage $message, $mailTo, $mailFrom, $subject, $emailBody);
+    abstract protected function populateMailMessage(
+        MailMessage $message,
+        array $mailTo,
+        array $mailFrom,
+        string $subject,
+        string $emailBody
+    ): MailMessage;
 
-    /**
-     * Create mail message.
-     *
-     * @return MailMessage
-     */
-    protected function createMailMessage()
+    protected function createMailMessage(): MailMessage
     {
-        return $this->objectManager->get(MailMessage::class);
+        return GeneralUtility::makeInstance(MailMessage::class);
     }
 }

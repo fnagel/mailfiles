@@ -17,16 +17,13 @@ use TYPO3\CMS\Core\Mail\MailMessage;
  */
 class SymfonyEmailService extends BaseEmailService
 {
-    /**
-     * This is the main-function for sending Mails.
-     *
-     * @param array $mailTo
-     * @param array $mailFrom
-     * @param string $subject
-     * @param string $emailBody
-     * @return MailMessage
-     */
-    protected function populateMailMessage(MailMessage $message, $mailTo, $mailFrom, $subject, $emailBody)
+    protected function populateMailMessage(
+        MailMessage $message,
+        array $mailTo,
+        array $mailFrom,
+        string $subject,
+        string $emailBody
+    ): MailMessage
     {
         $message
             ->subject($subject)

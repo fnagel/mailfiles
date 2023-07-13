@@ -10,6 +10,7 @@ namespace FelixNagel\Mailfiles\Controller;
  */
 
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use FelixNagel\Mailfiles\Service\SymfonyEmailService;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
@@ -90,7 +91,7 @@ class DefaultController extends ActionController
         $mailTo = $this->settings['mailTo'];
         $mailFrom = $this->settings['mailFrom'];
 
-		$emailService = $this->objectManager->get(SymfonyEmailService::class);
+		$emailService = GeneralUtility::makeInstance(SymfonyEmailService::class);
 
         return $emailService->sendEmail(
             [$mailTo['email'] => empty($mailTo['name']) ? null : $mailTo['name']],
