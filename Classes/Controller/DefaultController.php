@@ -11,24 +11,16 @@ namespace FelixNagel\Mailfiles\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use FelixNagel\Mailfiles\Service\SymfonyEmailService;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use FelixNagel\Mailfiles\Domain\Model\Mail;
 
-/**
- * DefaultController.
- */
 class DefaultController extends ActionController
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
     protected function initializeAction()
     {
         if (!ExtensionManagementUtility::isLoaded('pluploadfe')) {
@@ -40,9 +32,6 @@ class DefaultController extends ActionController
         }
     }
 
-    /**
-     * action new.
-     */
     public function newAction(): ResponseInterface
     {
         // @extensionScannerIgnoreLine
@@ -55,23 +44,27 @@ class DefaultController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     * action create.
-     */
     public function createAction(Mail $newMail): ResponseInterface
     {
+        $files = $this->getFilesInSession();
+
+        if ($files === null) {
+            $this->addFlashMessage($this->translate('flashMessage.noFiles'), '', Message::ERROR);
+            return $this->errorAction();
+        }
+
         $result = $this->sendEmail(
             // See 2.1.1. Line Length Limits, http://www.faqs.org/rfcs/rfc2822.html
             substr(htmlspecialchars(strip_tags($newMail->getSubject())), 0, 78),
             // String will be escaped by fluid, but we don't want tags anyway
             strip_tags($newMail->getMessage()),
-            $this->getFilesInSession()
+            $files
         );
 
         if ($result) {
-            $this->addFlashMessage($this->translate('flashMessage.success'), '', AbstractMessage::OK);
+            $this->addFlashMessage($this->translate('flashMessage.success'));
         } else {
-            $this->addFlashMessage($this->translate('flashMessage.error'), '', AbstractMessage::ERROR);
+            $this->addFlashMessage($this->translate('flashMessage.error'), '', Message::ERROR);
         }
 
         $this->resetFilesInSession();
@@ -79,14 +72,7 @@ class DefaultController extends ActionController
         return $this->redirect('new');
     }
 
-    /**
-     * @param string $subject
-     * @param string $message
-     * @param array  $files
-     *
-     * @return bool
-     */
-    protected function sendEmail($subject, $message, $files = [])
+    protected function sendEmail(string $subject, string $message, array $files = []): bool
     {
         $mailTo = $this->settings['mailTo'];
         $mailFrom = $this->settings['mailFrom'];
@@ -105,25 +91,17 @@ class DefaultController extends ActionController
         );
     }
 
-    /**
-     * @return array
-     */
-    protected function getFilesInSession()
+    protected function getFilesInSession(): ?array
     {
         $files = $this->getTsFeController()->fe_user->getKey('ses', 'tx_pluploadfe_files');
 
-        if (!is_array($files) || count($files) < 1) {
-            $this->addFlashMessage($this->translate('flashMessage.noFiles'), '', AbstractMessage::ERROR);
-            $this->errorAction();
-        }
-
-        return $files;
+        return (!is_array($files) || $files === []) ? null : $files;
     }
 
     /**
      * @todo Add config uid to session key with next major version of EXT:pluploadfe!
      */
-    protected function resetFilesInSession()
+    protected function resetFilesInSession(): void
     {
         $this->getTsFeController()->fe_user->setKey('ses', 'tx_pluploadfe_files', '');
         // @extensionScannerIgnoreLine
@@ -142,9 +120,6 @@ class DefaultController extends ActionController
         return $GLOBALS['TSFE'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getErrorFlashMessage()
     {
         return false;
