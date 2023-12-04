@@ -1,6 +1,6 @@
 # TYPO3 Mailfiles
 
-TYPO3 CMS Extension to upload files and send download links via email.
+Simple TYPO3 CMS Extension to upload files and send download links via email.
 
 
 ## Description
@@ -8,8 +8,7 @@ TYPO3 CMS Extension to upload files and send download links via email.
 This extension provides a simple form with a Pluploadfe upload widget, a simple text input
 used as mail subject, a textarea for adding a message, a "auto-send" checkbox and a submit button.
 
-If the "auto-send" checkbox is checked the form will be auto submitted
-once uploading is completed.
+If the "auto-send" checkbox is checked the form will be auto submitted once uploading is completed.
 
 
 ## Installation
