@@ -9,6 +9,7 @@ namespace FelixNagel\Mailfiles\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\Pluploadfe\Middleware\Upload;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
@@ -21,6 +22,8 @@ use FelixNagel\Mailfiles\Domain\Model\Mail;
 
 class DefaultController extends ActionController
 {
+    protected ?int $configUid = null;
+
     protected function initializeAction()
     {
         if (!ExtensionManagementUtility::isLoaded('pluploadfe')) {
@@ -29,6 +32,14 @@ class DefaultController extends ActionController
 
         if (empty($this->settings['mailTo']['email'])) {
             throw new \Exception('No mail to address given!');
+        }
+
+        // @extensionScannerIgnoreLine
+        $contentObject = $this->configurationManager->getContentObject();
+        $this->configUid = (int) $contentObject->data['tx_mailfiles_pluploadfe_config'];
+
+        if (empty($this->configUid)) {
+            throw new \Exception('No config UID given!');
         }
     }
 
@@ -93,19 +104,21 @@ class DefaultController extends ActionController
 
     protected function getFilesInSession(): ?array
     {
-        $files = $this->getTsFeController()->fe_user->getKey('ses', 'tx_pluploadfe_files');
+        $files = $this->getTsFeController()->fe_user->getKey('ses', $this->getSessionName());
 
         return (!is_array($files) || $files === []) ? null : $files;
     }
 
-    /**
-     * @todo Add config uid to session key with next major version of EXT:pluploadfe!
-     */
     protected function resetFilesInSession(): void
     {
-        $this->getTsFeController()->fe_user->setKey('ses', 'tx_pluploadfe_files', '');
+        $this->getTsFeController()->fe_user->setKey('ses', $this->getSessionName(), '');
         // @extensionScannerIgnoreLine
         $this->getTsFeController()->fe_user->storeSessionData();
+    }
+
+    protected function getSessionName(): string
+    {
+        return Upload::SESSION_KEY_PREFIX.$this->configUid.'_files';
     }
 
     protected function translate(string $key): ?string
