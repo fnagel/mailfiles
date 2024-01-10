@@ -9,10 +9,6 @@ plugin.tx_mailfiles_pi1 {
 		layoutRootPaths.0 = EXT:mailfiles/Resources/Private/Layouts/
 		layoutRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.layoutRootPath}
 	}
-	features {
-		skipDefaultArguments = 1
-		requireCHashArgumentForActionArguments = 1
-	}
 	mvc {
 		callDefaultActionIfActionCantBeResolved = 1
 	}
