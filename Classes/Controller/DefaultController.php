@@ -88,6 +88,11 @@ class DefaultController extends ActionController
         $mailTo = $this->settings['mailTo'];
         $mailFrom = $this->settings['mailFrom'];
 
+        // Use email form field if enabled
+        if ($this->settings['showMailToField'] && !empty($mail->getEmail())) {
+            $mailTo['email'] = $mail->getEmail();
+        }
+
 		$emailService = GeneralUtility::makeInstance(SymfonyEmailService::class);
 
         return $emailService->sendEmail(
