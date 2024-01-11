@@ -17,6 +17,8 @@ plugin.tx_mailfiles_pi1 {
 		# Configure email template file (txt or html), controller name (and therefor subdirectory) is "Email"
 		mailTemplate = Email.html
 
+        # Set mail to address or allow adding an email address in frontend
+        showMailToField = 0
 		mailTo {
 			email = mail@test.dev
 			name =

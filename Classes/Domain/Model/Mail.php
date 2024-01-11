@@ -17,6 +17,9 @@ class Mail extends AbstractEntity
     #[Extbase\Validate(['validator' => 'Text'])]
     protected string $subject = '';
 
+    #[Extbase\Validate(['validator' => 'EmailAddress'])]
+    protected string $email = '';
+
     #[Extbase\Validate(['validator' => 'Text'])]
     protected string $message = '';
 
@@ -28,6 +31,16 @@ class Mail extends AbstractEntity
     public function setSubject(string $subject)
     {
         $this->subject = $subject;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
     }
 
     public function getMessage(): string

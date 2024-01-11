@@ -6,6 +6,9 @@
 			<trans-unit id="tx_mailfiles_domain_model_mail.subject">
 				<source>Subject</source>
 			</trans-unit>
+			<trans-unit id="tx_mailfiles_domain_model_mail.email">
+				<source>Recipient email</source>
+			</trans-unit>
 			<trans-unit id="tx_mailfiles_domain_model_mail.message">
 				<source>Message</source>
 			</trans-unit>
