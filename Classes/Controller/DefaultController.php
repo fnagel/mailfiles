@@ -64,13 +64,7 @@ class DefaultController extends ActionController
             return $this->errorAction();
         }
 
-        $result = $this->sendEmail(
-            // See 2.1.1. Line Length Limits, http://www.faqs.org/rfcs/rfc2822.html
-            substr(htmlspecialchars(strip_tags($newMail->getSubject())), 0, 78),
-            // String will be escaped by fluid, but we don't want tags anyway
-            strip_tags($newMail->getMessage()),
-            $files
-        );
+        $result = $this->sendEmail($newMail, $files);
 
         if ($result) {
             $this->addFlashMessage($this->translate('flashMessage.success'));
@@ -83,8 +77,14 @@ class DefaultController extends ActionController
         return $this->redirect('new');
     }
 
-    protected function sendEmail(string $subject, string $message, array $files = []): bool
+    protected function sendEmail(Mail $mail, array $files = []): bool
     {
+        // See 2.1.1. Line Length Limits, http://www.faqs.org/rfcs/rfc2822.html
+        $subject = substr(htmlspecialchars(strip_tags($mail->getSubject())), 0, 78);
+
+        // String will be escaped by Fluid, but we don't want tags anyway
+        $message = strip_tags($mail->getMessage());
+
         $mailTo = $this->settings['mailTo'];
         $mailFrom = $this->settings['mailFrom'];
 
