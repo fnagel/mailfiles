@@ -54,11 +54,11 @@ abstract class BaseEmailService implements SingletonInterface
      */
     protected function send(array $mailTo, array $mailFrom, string $subject, string $emailBody): int
     {
-        if (!($mailTo && is_array($mailTo) && GeneralUtility::validEmail(key($mailTo)))) {
-            return false;
+        if (!GeneralUtility::validEmail(key($mailTo))) {
+            return 0;
         }
 
-        if (!($mailFrom && is_array($mailFrom) && GeneralUtility::validEmail(key($mailFrom)))) {
+        if (!GeneralUtility::validEmail(key($mailFrom))) {
             $mailFrom = MailUtility::getSystemFrom();
         }
 
