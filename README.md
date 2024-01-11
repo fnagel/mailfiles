@@ -10,6 +10,8 @@ used as mail subject, a textarea for adding a message, a "auto-send" checkbox an
 
 If the "auto-send" checkbox is checked the form will be auto submitted once uploading is completed.
 
+@wowaTYPO3 did an introduction of this extension in his Twitch channel, take a look here:
+https://www.twitch.tv/videos/1997781074 or https://youtu.be/uzh8jgCqI5g?si=NS1JgluKexX3Fpxi&t=873
 
 ## Installation
 
