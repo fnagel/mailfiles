@@ -8,6 +8,8 @@ Simple TYPO3 CMS Extension to upload files and send download links via email.
 This extension provides a simple form with a Pluploadfe upload widget, a simple text input
 used as mail subject, a textarea for adding a message, a "auto-send" checkbox and a submit button.
 
+Recipient of the email is configured by TypoScript or by using an email address input field.
+
 If the "auto-send" checkbox is checked the form will be auto submitted once uploading is completed.
 
 @wowaTYPO3 did an introduction of this extension in his Twitch channel, take a look here:
