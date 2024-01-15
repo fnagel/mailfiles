@@ -9,6 +9,7 @@ namespace FelixNagel\Mailfiles\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\Mailfiles\Service\FluidEmailService;
 use FelixNagel\Pluploadfe\Middleware\Upload;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -81,6 +82,7 @@ class DefaultController extends ActionController
     {
         // See 2.1.1. Line Length Limits, http://www.faqs.org/rfcs/rfc2822.html
         $subject = substr(htmlspecialchars(strip_tags($mail->getSubject())), 0, 78);
+        $subject = empty($subject) ? $this->settings['mailSubjectDefault'] : $subject;
 
         // String will be escaped by Fluid, but we don't want tags anyway
         $message = strip_tags($mail->getMessage());
@@ -93,13 +95,18 @@ class DefaultController extends ActionController
             $mailTo['email'] = $mail->getEmail();
         }
 
-		$emailService = GeneralUtility::makeInstance(SymfonyEmailService::class);
+		$emailService = GeneralUtility::makeInstance(
+            (isset($this->settings['useTypoFluidMail']) && $this->settings['useTypoFluidMail']) ?
+                FluidEmailService::class : SymfonyEmailService::class
+        );
 
         return $emailService->sendEmail(
             [$mailTo['email'] => empty($mailTo['name']) ? null : $mailTo['name']],
             [$mailFrom['email'] => empty($mailFrom['name']) ? null : $mailFrom['name']],
-            empty($subject) ? $this->settings['mailSubjectDefault'] : $subject,
+            $subject,
             [
+                'settings' => $this->settings,
+                'subject' => $subject,
                 'message' => $message,
                 'files' => $files,
             ],

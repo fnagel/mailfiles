@@ -9,13 +9,13 @@ namespace FelixNagel\Mailfiles\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Mail\MailMessage;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
-use TYPO3\CMS\Core\Context\Context;
 
 /**
  * Handles email sending and templating.
@@ -36,23 +36,21 @@ abstract class BaseEmailService implements SingletonInterface
         $this->configurationManager = $configurationManager;
     }
 
-    /**
-     * This is the main-function for sending Mails.
-     *
-     * @return int The number of recipients who were accepted for delivery
-     */
-    public function sendEmail(array $mailTo, array $mailFrom, string $subject, array $variables, string $templatePath): int
+    protected function getFrameworkConfiguration(): array
     {
-		// @extensionScannerIgnoreLine
-        return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));
+        return $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            $this->extensionName,
+            ''
+        );
     }
 
     /**
      * This is the main-function for sending Mails.
      *
-     * @return int The number of recipients who were accepted for delivery
+     * @return bool Checks whether the message has been sent
      */
-    protected function send(array $mailTo, array $mailFrom, string $subject, string $emailBody): int
+    public function sendEmail(array $mailTo, array $mailFrom, string $subject, array $variables, string $templateFile): bool
     {
         if (!GeneralUtility::validEmail(key($mailTo))) {
             return 0;
@@ -62,95 +60,24 @@ abstract class BaseEmailService implements SingletonInterface
             $mailFrom = MailUtility::getSystemFrom();
         }
 
-        $message = $this->populateMailMessage(
-            $this->createMailMessage(),
-            $mailTo,
-            $mailFrom,
-            $subject,
-            $emailBody
-        );
+        $message = $this->createMailMessage()
+            ->subject($subject)
+            ->to(new Address(key($mailTo), current($mailTo) || ''))
+            ->from(new Address(key($mailFrom), current($mailFrom) || ''));
 
-        $message->send();
-
-        return $message->isSent();
+		// @extensionScannerIgnoreLine
+        return $this->send($message, $variables, $templateFile);
     }
 
-    /**
-     * This functions renders template to use in Mails and Other views.
-     */
-    protected function render(array $variables, string $templatePath): string
+    protected function getDefaultTemplateVariables(): array
     {
-        $emailView = $this->getEmailView($templatePath);
-        $emailView->assignMultiple($variables);
-        $emailView->assignMultiple([
+        return [
             'timestamp' => GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'),
             'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
-        ]);
-
-        return $emailView->render();
+        ];
     }
 
-    /**
-     * Create and configure the view.
-     */
-    protected function getEmailView(string $templateFile): StandaloneView
-    {
-        $emailView = $this->createStandaloneView();
+    abstract protected function send(Email $message, array $variables, string $templateFile): bool;
 
-        $format = pathinfo($templateFile, PATHINFO_EXTENSION);
-        $emailView->setFormat($format);
-        $emailView->getTemplatePaths()->setFormat($format);
-
-        $emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
-        $emailView->setTemplate($templateFile);
-
-        return $emailView;
-    }
-
-    protected function createStandaloneView(): StandaloneView
-    {
-        /* @var $emailView StandaloneView */
-        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
-
-        $this->setViewPaths($emailView);
-
-        return $emailView;
-    }
-
-    protected function setViewPaths(StandaloneView $emailView)
-    {
-        $frameworkConfig = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-            $this->extensionName,
-            ''
-        );
-
-        if (isset($frameworkConfig['view']['layoutRootPaths'])) {
-            $emailView->setLayoutRootPaths($frameworkConfig['view']['layoutRootPaths']);
-        }
-
-        if (isset($frameworkConfig['view']['partialRootPaths'])) {
-            $emailView->setPartialRootPaths($frameworkConfig['view']['partialRootPaths']);
-        }
-
-        if (isset($frameworkConfig['view']['templateRootPaths'])) {
-            $emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
-        }
-    }
-
-    /**
-     * This is the main-function for sending Mails.
-     */
-    abstract protected function populateMailMessage(
-        MailMessage $message,
-        array $mailTo,
-        array $mailFrom,
-        string $subject,
-        string $emailBody
-    ): MailMessage;
-
-    protected function createMailMessage(): MailMessage
-    {
-        return GeneralUtility::makeInstance(MailMessage::class);
-    }
+    abstract protected function createMailMessage(): Email;
 }

@@ -1,16 +1,13 @@
-<f:layout name="Email" />
+<f:layout name="{f:if(condition: '{settings.useTypoFluidMail}', then: 'SystemEmail', else: 'Email')}" />
 
-<f:section name="main">
-    <p>
-        New files uploaded!
-    </p>
+<f:section name="Title">New files have been uploaded!</f:section>
 
+<f:section name="Main">
     <f:if condition="{message}">
-        <strong>Message:</strong>
-        <br>
         <p>
             {message -> f:format.nl2br()}
         </p>
+				<br>
     </f:if>
 
     <strong>Uploaded files:</strong>
@@ -18,7 +15,7 @@
     <ul>
         <f:for each="{files}" as="file">
             <li>
-                <a href="{domain}{file}" target="_blank">{file}</a>
+                <a href="{domain}{file}" target="_blank">{domain}{file}</a>
             </li>
         </f:for>
     </ul>
