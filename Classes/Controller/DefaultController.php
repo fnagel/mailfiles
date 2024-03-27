@@ -25,7 +25,7 @@ class DefaultController extends ActionController
 {
     protected ?int $configUid = null;
 
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         if (!ExtensionManagementUtility::isLoaded('pluploadfe')) {
             throw new \Exception('EXT:pluploadfe is not installed!');
@@ -145,7 +145,7 @@ class DefaultController extends ActionController
         return $GLOBALS['TSFE'];
     }
 
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): bool|string
     {
         return false;
     }
