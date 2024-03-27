@@ -14,7 +14,6 @@ use FelixNagel\Pluploadfe\Middleware\Upload;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use FelixNagel\Mailfiles\Service\SymfonyEmailService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -36,6 +35,7 @@ class DefaultController extends ActionController
         }
 
         $contentObject = $this->request->getAttribute('currentContentObject');
+        // @extensionScannerIgnoreLine
         $this->configUid = (int) $contentObject->data['tx_mailfiles_pluploadfe_config'];
 
         if (empty($this->configUid)) {
@@ -48,6 +48,7 @@ class DefaultController extends ActionController
         $contentObject = $this->request->getAttribute('currentContentObject');
 
         $this->view->assignMultiple([
+            // @extensionScannerIgnoreLine
             'configUid' => (int) $contentObject->data['tx_mailfiles_pluploadfe_config']
         ]);
 
@@ -114,16 +115,16 @@ class DefaultController extends ActionController
 
     protected function getFilesInSession(): ?array
     {
-        $files = $this->getTsFeController()->fe_user->getKey('ses', $this->getSessionName());
+        $files = $this->request->getAttribute('frontend.user')->getKey('ses', $this->getSessionName());
 
         return (!is_array($files) || $files === []) ? null : $files;
     }
 
     protected function resetFilesInSession(): void
     {
-        $this->getTsFeController()->fe_user->setKey('ses', $this->getSessionName(), '');
+        $this->request->getAttribute('frontend.user')->setKey('ses', $this->getSessionName(), '');
         // @extensionScannerIgnoreLine
-        $this->getTsFeController()->fe_user->storeSessionData();
+        $this->request->getAttribute('frontend.user')->storeSessionData();
     }
 
     protected function getSessionName(): string
@@ -136,11 +137,6 @@ class DefaultController extends ActionController
         $translation = LocalizationUtility::translate($key, $this->request->getControllerExtensionName());
 
         return empty($translation) ? $key : $translation;
-    }
-
-    protected function getTsFeController(): TypoScriptFrontendController
-    {
-        return $GLOBALS['TSFE'];
     }
 
     protected function getErrorFlashMessage(): bool|string
