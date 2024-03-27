@@ -35,8 +35,7 @@ class DefaultController extends ActionController
             throw new \Exception('No mail to address given!');
         }
 
-        // @extensionScannerIgnoreLine
-        $contentObject = $this->configurationManager->getContentObject();
+        $contentObject = $this->request->getAttribute('currentContentObject');
         $this->configUid = (int) $contentObject->data['tx_mailfiles_pluploadfe_config'];
 
         if (empty($this->configUid)) {
@@ -46,8 +45,7 @@ class DefaultController extends ActionController
 
     public function newAction(): ResponseInterface
     {
-        // @extensionScannerIgnoreLine
-        $contentObject = $this->configurationManager->getContentObject();
+        $contentObject = $this->request->getAttribute('currentContentObject');
 
         $this->view->assignMultiple([
             'configUid' => (int) $contentObject->data['tx_mailfiles_pluploadfe_config']
