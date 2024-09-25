@@ -25,9 +25,11 @@ abstract class BaseEmailService implements SingletonInterface
     /**
      * @var string
      */
-    public const TEMPLATE_FOLDER = 'Email';
+    protected const TEMPLATE_FOLDER = 'Email';
 
-    protected string $extensionName = 'mailfiles';
+    protected string $extensionName = 'Mailfiles';
+
+    protected string $pluginName = 'Pi1';
 
     public ?ConfigurationManagerInterface $configurationManager = null;
 
@@ -41,7 +43,7 @@ abstract class BaseEmailService implements SingletonInterface
         return $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             $this->extensionName,
-            ''
+            $this->pluginName
         );
     }
 
