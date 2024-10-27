@@ -37,6 +37,9 @@ call_user_func(static function ($packageKey) {
     ExtensionUtility::registerPlugin(
         'Mailfiles',
         'Pi1',
-        'LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xlf:plugin.title'
+        'LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xlf:wizard.title',
+        'extensions-mailfiles-wizard',
+        'plugins',
+        'LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xlf:wizard.description'
     );
 }, 'mailfiles');

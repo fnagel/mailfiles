@@ -1,5 +1,6 @@
+# @todo Remove this when TYPO3 v12 is no longer relevant!
 mod.wizards.newContentElement.wizardItems.plugins {
-	elements.mailfiles {
+	elements.mailfiles_pi1 {
 		iconIdentifier = extensions-mailfiles-wizard
 		title = LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xlf:wizard.title
 		description = LLL:EXT:mailfiles/Resources/Private/Language/locallang_db.xlf:wizard.description
