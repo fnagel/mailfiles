@@ -30,6 +30,8 @@ class DefaultController extends ActionController
             throw new \Exception('EXT:pluploadfe is not installed!');
         }
 
+        $this->buildSettings();
+
         if (empty($this->settings['mailTo']['email'])) {
             throw new \Exception('No mail to address given!');
         }
@@ -142,5 +144,31 @@ class DefaultController extends ActionController
     protected function getErrorFlashMessage(): bool|string
     {
         return false;
+    }
+
+    protected function buildSettings(): void
+    {
+        // Use stdWrap for given defined settings
+        if (isset($this->settings['useStdWrap']) && !empty($this->settings['useStdWrap'])) {
+            $stdWrapProperties = GeneralUtility::trimExplode(',', $this->settings['useStdWrap'], true);
+
+            foreach ($stdWrapProperties as $key) {
+                $segments = GeneralUtility::trimExplode('.', $key, true);
+                if ($segments[1] ?? '') {
+                    if (is_array($this->settings[$segments[0]][$segments[1]] ?? null)) {
+                        $cObject = $this->request->getAttribute('currentContentObject');
+                        $this->settings[$segments[0]][$segments[1]] = $cObject->stdWrap(
+                            $this->settings[$segments[0]][$segments[1]]['_typoScriptNodeValue'] ?? '',
+                            $this->settings[$segments[0]][$segments[1]]
+                        );
+                    }
+                } elseif (is_array($this->settings[$segments[0]] ?? null)) {
+                    $this->settings[$segments[0]] = $this->request->getAttribute('currentContentObject')->stdWrap(
+                        $this->settings[$segments[0]]['_typoScriptNodeValue'] ?? '',
+                        $this->settings[$segments[0]]
+                    );
+                }
+            }
+        }
     }
 }
