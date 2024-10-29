@@ -14,6 +14,16 @@ plugin.tx_mailfiles_pi1 {
 	}
 
 	settings {
+		# By using "useStdWrap" it is possible to call the full range of stdWrap on any setting:
+		#
+		# useStdWrap := addToList(mailTo.email,mailTo.name)
+		# mailTo {
+		# 	email = TEXT
+		# 	email.data = TSFE:fe_user|user|email
+		# 	name = TEXT
+		# 	name.data = TSFE:fe_user|user|username
+		# }
+
         # When using the core fluid mail functionality, you will need to configure the MAIL.templateRootPaths
         # configuration in order to override the template and partial paths. See TYPO3 docs:
         # https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/Mail/Index.html#send-email-with-fluidemail
