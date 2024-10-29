@@ -64,8 +64,8 @@ abstract class BaseEmailService implements SingletonInterface
 
         $message = $this->createMailMessage()
             ->subject($subject)
-            ->to(new Address(key($mailTo), current($mailTo) || ''))
-            ->from(new Address(key($mailFrom), current($mailFrom) || ''));
+            ->to(new Address(key($mailTo), current($mailTo) ?? ''))
+            ->from(new Address(key($mailFrom), current($mailFrom) ?? ''));
 
 		// @extensionScannerIgnoreLine
         return $this->send($message, $variables, $templateFile);
