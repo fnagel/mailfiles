@@ -6,5 +6,8 @@ plugin.tx_mailfiles_pi1 {
         partialRootPath = EXT:mailfiles/Resources/Private/Partials/
         # cat=plugin.tx_mailfiles_pi1/file; type=string; label=Path to template layouts (FE)
         layoutRootPath = EXT:mailfiles/Resources/Private/Layouts/
+
+        # cat=plugin.tx_mailfiles_pi1/file; type=string; label=Path to EXT:pluploadfe template file
+        pluploadfeTemplateFile = EXT:mailfiles/Resources/Private/Templates/template.html
     }
 }

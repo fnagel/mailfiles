@@ -1,0 +1,4 @@
+name: felixnagel/mailfiles
+label: 'Mail Files: default config'
+dependencies:
+  - felixnagel/pluploadfe

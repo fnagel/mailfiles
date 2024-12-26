@@ -1,0 +1,34 @@
+categories:
+  Mailfiles:
+    label: 'Mailfiles'
+  Mailfiles.templates:
+    label: 'Templates'
+    parent: Mailfiles
+  Mailfiles.pluploadfe:
+    label: 'EXT:pluploadfe related settings'
+    parent: Mailfiles
+
+settings:
+  plugin.mailfiles.view.templateRootPath:
+    label: 'Path to template root (FE)'
+    default: 'EXT:mailfiles/Resources/Private/Templates/'
+    type: string
+    category: Mailfiles.templates
+
+  plugin.mailfiles.view.partialRootPath:
+    label: 'Path to template partials (FE)'
+    default: 'EXT:mailfiles/Resources/Private/Partials/'
+    type: string
+    category: Mailfiles.templates
+
+  plugin.mailfiles.view.layoutRootPath:
+    label: 'Path to template layouts (FE)'
+    default: 'EXT:mailfiles/Resources/Private/Layouts/'
+    type: string
+    category: Mailfiles.templates
+
+  plugin.mailfiles.pluploadfe.template:
+    label: 'Path to EXT:pluploadfe template file'
+    default: 'EXT:mailfiles/Resources/Private/Templates/template.html'
+    type: string
+    category: Mailfiles.pluploadfe

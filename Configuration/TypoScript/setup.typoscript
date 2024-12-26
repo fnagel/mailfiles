@@ -1,13 +1,13 @@
 plugin.tx_mailfiles_pi1 {
 	view {
 		templateRootPaths.0 = EXT:mailfiles/Resources/Private/Templates/
-		templateRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.templateRootPath}
+		templateRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.templateRootPath ?? $plugin.mailfiles.view.templateRootPath}
 
 		partialRootPaths.0 = EXT:mailfiles/Resources/Private/Partials/
-		partialRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.partialRootPath}
+		partialRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.partialRootPath ?? $plugin.mailfiles.view.partialRootPath}
 
 		layoutRootPaths.0 = EXT:mailfiles/Resources/Private/Layouts/
-		layoutRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.layoutRootPath}
+		layoutRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.layoutRootPath ?? $plugin.mailfiles.view.layoutRootPath}
 	}
 	mvc {
 		callDefaultActionIfActionCantBeResolved = 1
@@ -39,7 +39,7 @@ plugin.tx_mailfiles_pi1 {
 		# PluploadFe instance
 		pluploadfe < plugin.tx_pluploadfe_pi1
 		pluploadfe {
-			templateFile = EXT:mailfiles/Resources/Private/Templates/template.html
+            templateFile = {$plugin.tx_mailfiles_pi1.view.pluploadfeTemplateFile ?? $plugin.mailfiles.pluploadfe.template}
 		}
 	}
 }
