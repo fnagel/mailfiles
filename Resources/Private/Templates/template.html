@@ -6,12 +6,16 @@
 	<script type="text/javascript">
 	// ###TEMPLATE_CODE###
 	$(function() {
-		// prepare form
+		// Prepare form
 		var uploader = $('#uploader_###UID###'),
 			form = uploader.closest('.tx-mailfiles').find('form'),
-			button = form.find(':submit').prop('disabled', true).addClass(' disabled ui-state-disabled'),
+			button = form.find(':submit'),
+			toggleButton = function(toggle) {
+				button.prop('disabled', !toggle).toggleClass('disabled ui-state-disabled', !toggle);
+			},
 			auto = form.find(':checkbox'),
 			langPrefix = 'pluploadfe_error_',
+			instance,
 			message,
 			json;
 
@@ -66,6 +70,13 @@
 
 					alert(message);
 				},
+				Init: function(up) {
+					instance = up;
+					toggleButton(false);
+				},
+				QueueChanged: function(up) {
+					toggleButton(up.files.length > 0);
+				},
 				FileUploaded: function(up, file, info) {
 					json = $.parseJSON(info.response);
 
@@ -75,7 +86,8 @@
 					}
 				},
 				UploadComplete: function() {
-				   button.prop('disabled', false ).removeClass('disabled ui-state-disabled');
+					toggleButton(true);
+
 				   if (auto.is(':checked')) {
 					   window.setTimeout(function() {
 						   button.trigger('click');
@@ -84,6 +96,14 @@
 				}
 			}
 		});
+
+		button.on('click', function(event) {
+			if (instance.total.queued > instance.total.uploaded) {
+				event.preventDefault();
+				auto.prop('checked', true);
+				instance.start();
+			}
+		})
 	});
 	// ###TEMPLATE_CODE###
 	</script>

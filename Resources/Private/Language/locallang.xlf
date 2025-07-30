@@ -13,10 +13,10 @@
 				<source>Message</source>
 			</trans-unit>
 			<trans-unit id="tx_mailfiles_domain_model_mail.auto">
-				<source>Auto-Send</source>
+				<source>Auto submit after upload</source>
 			</trans-unit>
 			<trans-unit id="tx_mailfiles_domain_model_mail.submit">
-				<source>Submit</source>
+				<source>Upload and submit</source>
 			</trans-unit>
 
 			<trans-unit id="flashMessage.noFiles">
