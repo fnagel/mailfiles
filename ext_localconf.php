@@ -8,11 +8,6 @@ defined('TYPO3') || die('Access denied.');
 
 call_user_func(
     static function () {
-        // Add page TS config
-        ExtensionManagementUtility::addPageTSConfig(
-            '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:mailfiles/Configuration/TSconfig/page.tsconfig">'
-        );
-
         // Configure plugin
         ExtensionUtility::configurePlugin(
             'Mailfiles',
