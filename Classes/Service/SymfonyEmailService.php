@@ -48,7 +48,7 @@ class SymfonyEmailService extends BaseEmailService
         $emailView = $this->getEmailView($templateName);
         $emailView
             ->assignMultiple($this->getDefaultTemplateVariables())
-            ->assignMultiple($variables);;
+            ->assignMultiple($variables);
 
         return $emailView->render();
     }
@@ -62,10 +62,10 @@ class SymfonyEmailService extends BaseEmailService
 
         $format = pathinfo($templateFile, PATHINFO_EXTENSION);
         $emailView->setFormat($format);
-        $emailView->getTemplatePaths()->setFormat($format);
+        $emailView->getRenderingContext()->getTemplatePaths()->setFormat($format);
 
         $emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
-        $emailView->setTemplate($templateFile);
+        $emailView->getRenderingContext()->setControllerAction($templateFile);
 
         return $emailView;
     }
@@ -85,15 +85,15 @@ class SymfonyEmailService extends BaseEmailService
         $frameworkConfig = $this->getFrameworkConfiguration();
 
         if (isset($frameworkConfig['view']['layoutRootPaths'])) {
-            $emailView->setLayoutRootPaths($frameworkConfig['view']['layoutRootPaths']);
+            $emailView->getRenderingContext()->getTemplatePaths()->setLayoutRootPaths($frameworkConfig['view']['layoutRootPaths']);
         }
 
         if (isset($frameworkConfig['view']['partialRootPaths'])) {
-            $emailView->setPartialRootPaths($frameworkConfig['view']['partialRootPaths']);
+            $emailView->getRenderingContext()->getTemplatePaths()->setPartialRootPaths($frameworkConfig['view']['partialRootPaths']);
         }
 
         if (isset($frameworkConfig['view']['templateRootPaths'])) {
-            $emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
+            $emailView->getRenderingContext()->getTemplatePaths()->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
         }
     }
 }
