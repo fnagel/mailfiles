@@ -17,7 +17,8 @@ call_user_func(
             // non-cacheable actions
             [
                 DefaultController::class => 'new, create',
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
     }
 );
