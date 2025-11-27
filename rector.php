@@ -21,7 +21,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODE_QUALITY,
         LevelSetList::UP_TO_PHP_82,
 
-        Typo3LevelSetList::UP_TO_TYPO3_12,
+        Typo3LevelSetList::UP_TO_TYPO3_13,
         Typo3SetList::TYPO3_13,
     ]);
 
