@@ -12,7 +12,9 @@ namespace FelixNagel\Mailfiles\Service;
 use Symfony\Component\Mime\Email;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
+use TYPO3\CMS\Core\View\ViewInterface;
 
 /**
  * Handles email sending and templating.
@@ -56,50 +58,28 @@ class SymfonyEmailService extends BaseEmailService
     /**
      * Create and configure the view.
      */
-    protected function getEmailView(string $templateFile): StandaloneView
+    protected function getEmailView(string $templateFile): ViewInterface
     {
-        $emailView = $this->createStandaloneView();
-
-        $format = pathinfo($templateFile, PATHINFO_EXTENSION);
-        $emailView->setFormat($format);
-        $emailView->getRenderingContext()->getTemplatePaths()->setFormat($format);
-
+        $emailView = $this->createStandaloneView($templateFile);
         $emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
         $emailView->getRenderingContext()->setControllerAction($templateFile);
 
         return $emailView;
     }
 
-    protected function createStandaloneView(): StandaloneView
+    protected function createStandaloneView(string $templateFile): ViewInterface
     {
-        /* @var $emailView StandaloneView */
-        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
+        /* @var $viewFactory ViewFactoryInterface */
+        $viewFactory = GeneralUtility::makeInstance(ViewFactoryInterface::class);
 
-        $this->setViewPaths($emailView);
-
-        return $emailView;
-    }
-
-    protected function setViewPaths(StandaloneView $emailView): void
-    {
         $frameworkConfig = $this->getFrameworkConfiguration();
+        $viewFactoryData = new ViewFactoryData(
+            templateRootPaths: $frameworkConfig['view']['templateRootPaths'] ?? null,
+            partialRootPaths: $frameworkConfig['view']['partialRootPaths'] ?? null,
+            layoutRootPaths: $frameworkConfig['view']['layoutRootPaths'] ?? null,
+            format: pathinfo($templateFile, PATHINFO_EXTENSION),
+        );
 
-        if (isset($frameworkConfig['view']['layoutRootPaths'])) {
-            $emailView->getRenderingContext()->getTemplatePaths()->setLayoutRootPaths(
-                $frameworkConfig['view']['layoutRootPaths']
-            );
-        }
-
-        if (isset($frameworkConfig['view']['partialRootPaths'])) {
-            $emailView->getRenderingContext()->getTemplatePaths()->setPartialRootPaths(
-                $frameworkConfig['view']['partialRootPaths']
-            );
-        }
-
-        if (isset($frameworkConfig['view']['templateRootPaths'])) {
-            $emailView->getRenderingContext()->getTemplatePaths()->setTemplateRootPaths(
-                $frameworkConfig['view']['templateRootPaths']
-            );
-        }
+        return $viewFactory->create($viewFactoryData);
     }
 }
