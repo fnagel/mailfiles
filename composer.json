@@ -20,7 +20,7 @@
     "require": {
 		"php": "^8.2",
 		"typo3/cms-core": "^13.3",
-        "felixnagel/pluploadfe": "^7 || ^8 || @dev"
+        "felixnagel/pluploadfe": "^9 || @dev"
     },
 	"require-dev": {
 		"ssch/typo3-rector": "^2.3"

@@ -47,7 +47,7 @@ plugin.tx_mailfiles_pi1 {
 		mailSubjectDefault = New files uploaded
 
 		# PluploadFe instance
-		pluploadfe < plugin.tx_pluploadfe_pi1
+		pluploadfe < tt_content.pluploadfe_pi1.20
 		pluploadfe {
             templateFile = {$plugin.tx_mailfiles_pi1.view.pluploadfeTemplateFile ?? $plugin.mailfiles.pluploadfe.template}
 		}
