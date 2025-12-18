@@ -53,19 +53,3 @@ plugin.tx_mailfiles_pi1 {
 		}
 	}
 }
-
-[compatVersion("12") && "{$plugin.tx_mailfiles_pi1.view.templateRootPath}" != ""]
-	plugin.tx_mailfiles_pi1.view.templateRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.templateRootPath}
-[END]
-
-[compatVersion("12") && "{$plugin.tx_mailfiles_pi1.view.partialRootPath}" != ""]
-	plugin.tx_mailfiles_pi1.view.partialRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.partialRootPath}
-[END]
-
-[compatVersion("12") && "{$plugin.tx_mailfiles_pi1.view.layoutRootPath}" != ""]
-	plugin.tx_mailfiles_pi1.view.layoutRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.layoutRootPath}
-[END]
-
-[compatVersion("12") && "{$plugin.tx_mailfiles_pi1.view.pluploadfeTemplateFile}" != ""]
-	plugin.tx_mailfiles_pi1.settings.pluploadfe.templateFile = {$plugin.tx_mailfiles_pi1.view.pluploadfeTemplateFile}
-[END]
