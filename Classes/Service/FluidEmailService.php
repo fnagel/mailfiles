@@ -11,7 +11,6 @@ namespace FelixNagel\Mailfiles\Service;
 
 use Symfony\Component\Mime\Email;
 use TYPO3\CMS\Core\Mail\FluidEmail;
-use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\TemplatePaths;
 
@@ -31,10 +30,9 @@ class FluidEmailService extends BaseEmailService
         $format = pathinfo($templateFile, PATHINFO_EXTENSION);
         $message->format($format === 'txt' ? FluidEmail::FORMAT_PLAIN : FluidEmail::FORMAT_HTML);
 
-        $mailer = GeneralUtility::makeInstance(MailerInterface::class);
-        $mailer->send($message);
+        $this->mailer->send($message);
 
-        return $mailer->getSentMessage() !== null;
+        return $this->mailer->getSentMessage() !== null;
     }
 
     /**

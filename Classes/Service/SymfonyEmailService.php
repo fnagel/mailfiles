@@ -32,9 +32,9 @@ class SymfonyEmailService extends BaseEmailService
             $message->html($emailBody);
         }
 
-        $message->send();
+        $this->mailer->send($message);
 
-        return $message->isSent();
+        return $this->mailer->getSentMessage() !== null;
     }
 
     protected function createMailMessage(): Email

@@ -12,6 +12,7 @@ namespace FelixNagel\Mailfiles\Service;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
@@ -31,12 +32,10 @@ abstract class BaseEmailService implements SingletonInterface
 
     protected string $pluginName = 'Pi1';
 
-    public ?ConfigurationManagerInterface $configurationManager = null;
-
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
-    {
-        $this->configurationManager = $configurationManager;
-    }
+    public function __construct(
+        protected ConfigurationManagerInterface $configurationManager,
+        protected MailerInterface $mailer,
+    ) {}
 
     protected function getFrameworkConfiguration(): array
     {
