@@ -41,28 +41,30 @@ class FluidEmailService extends BaseEmailService
      *
      * Taken from EXT:fe_login.
      */
-    public function getMailTemplatePaths(): TemplatePaths
+    protected function getMailTemplatePaths(): TemplatePaths
     {
         $frameworkConfig = $this->getFrameworkConfiguration();
         $templateRootPaths = [];
 
-        foreach ($frameworkConfig['view']['templateRootPaths'] as $templateRootPath) {
-            $templateRootPaths[] = $templateRootPath.self::TEMPLATE_FOLDER.'/';
+        foreach ($frameworkConfig['view']['templateRootPaths'] as $key => $templateRootPath) {
+            $templateRootPaths[$key] = $templateRootPath.self::TEMPLATE_FOLDER.'/';
         }
 
-        $pathArray = array_replace_recursive(
-            [
-                'layoutRootPaths'   => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths'],
-                'templateRootPaths' => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'],
-                'partialRootPaths'  => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths'],
-            ],
-            [
-                'templateRootPaths' => $templateRootPaths,
-                'partialRootPaths'  => $frameworkConfig['view']['partialRootPaths'],
-            ]
-        );
+        $templatePaths = new TemplatePaths();
+        $templatePaths->setTemplateRootPaths(array_replace(
+            $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'] ?? [],
+            $templateRootPaths,
+        ));
+        $templatePaths->setLayoutRootPaths(array_replace(
+            $GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths'] ?? [],
+            $frameworkConfig['view']['layoutRootPaths'] ?? [],
+        ));
+        $templatePaths->setPartialRootPaths(array_replace(
+            $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths'] ?? [],
+                $frameworkConfig['view']['partialRootPaths'] ?? [],
+        ));
 
-        return new TemplatePaths($pathArray);
+        return $templatePaths;
     }
 
     protected function createMailMessage(): Email

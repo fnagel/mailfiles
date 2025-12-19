@@ -1,13 +1,14 @@
 plugin.tx_mailfiles_pi1 {
+    # Start with key 20 as 0 and 10 are used by the TYPO3 core when using FluidEmail
 	view {
-		templateRootPaths.0 = EXT:mailfiles/Resources/Private/Templates/
-		templateRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.templateRootPath ?? $plugin.mailfiles.view.templateRootPath}
+		templateRootPaths.20 = EXT:mailfiles/Resources/Private/Templates/
+		templateRootPaths.21 = {$plugin.tx_mailfiles_pi1.view.templateRootPath ?? $plugin.mailfiles.view.templateRootPath}
 
-		partialRootPaths.0 = EXT:mailfiles/Resources/Private/Partials/
-		partialRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.partialRootPath ?? $plugin.mailfiles.view.partialRootPath}
+		partialRootPaths.20 = EXT:mailfiles/Resources/Private/Partials/
+		partialRootPaths.21 = {$plugin.tx_mailfiles_pi1.view.partialRootPath ?? $plugin.mailfiles.view.partialRootPath}
 
-		layoutRootPaths.0 = EXT:mailfiles/Resources/Private/Layouts/
-		layoutRootPaths.1 = {$plugin.tx_mailfiles_pi1.view.layoutRootPath ?? $plugin.mailfiles.view.layoutRootPath}
+		layoutRootPaths.20 = EXT:mailfiles/Resources/Private/Layouts/
+		layoutRootPaths.21 = {$plugin.tx_mailfiles_pi1.view.layoutRootPath ?? $plugin.mailfiles.view.layoutRootPath}
 	}
 	mvc {
 		callDefaultActionIfActionCantBeResolved = 1
