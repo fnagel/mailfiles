@@ -28,6 +28,13 @@ https://www.twitch.tv/videos/1997781074 or https://youtu.be/uzh8jgCqI5g?si=NS1Jg
 
 _Note:_ Make sure to enable "Save filepaths in user session" option in Plupload FE config record!
 
+### Updates
+
+Update extension and make sure to:
+
+* Use provided upgrade wizard in "Upgrade" BE module
+* Check TypoScript changes
+* Clear all caches in maintenance module
 
 ## Related projects
 
