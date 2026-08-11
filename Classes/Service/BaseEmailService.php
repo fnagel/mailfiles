@@ -9,6 +9,7 @@ namespace FelixNagel\Mailfiles\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\Pluploadfe\Utility\Frontend;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use TYPO3\CMS\Core\Context\Context;
@@ -74,7 +75,7 @@ abstract class BaseEmailService implements SingletonInterface
     {
         return [
             'timestamp' => GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'),
-            'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
+            'domain' => Frontend::getSiteUrl(),
         ];
     }
 
