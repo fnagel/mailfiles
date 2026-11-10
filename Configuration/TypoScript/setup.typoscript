@@ -61,4 +61,17 @@ plugin.tx_mailfiles_pi1 {
             templateFile = {$plugin.tx_mailfiles_pi1.view.pluploadfeTemplateFile ?? $plugin.mailfiles.pluploadfe.template}
 		}
 	}
+
+	_LOCAL_LANG {
+		de {
+			tx_mailfiles_domain_model_mail.subject = Betreff
+			tx_mailfiles_domain_model_mail.message = Nachricht
+			tx_mailfiles_domain_model_mail.submit = Hochladen und senden
+			tx_mailfiles_domain_model_mail.auto = Nach dem Hochladen automatisch senden
+
+			flashMessage.noFiles = Bitte laden Sie vor dem Absenden Dateien hoch.
+			flashMessage.success = Vielen Dank, Ihre Dateien wurden erfolgreich übertragen.
+			flashMessage.error = Es ist ein nicht näher definierter Fehler aufgetreten!
+		}
+	}
 }
