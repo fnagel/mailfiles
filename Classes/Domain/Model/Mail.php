@@ -8,19 +8,19 @@ namespace FelixNagel\Mailfiles\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Attribute\Validate;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Mail extends AbstractEntity
 {
-    #[Extbase\Validate(['validator' => 'Text'])]
+    #[Validate(validator: 'Text')]
     protected string $subject = '';
 
-    #[Extbase\Validate(['validator' => 'EmailAddress'])]
+    #[Validate(validator: 'EmailAddress')]
     protected string $email = '';
 
-    #[Extbase\Validate(['validator' => 'Text'])]
+    #[Validate(validator: 'Text')]
     protected string $message = '';
 
     public function getSubject(): string
